@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Solving Equations: Caleb's Guide</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1c2333;--muted:#5a6476;--accent:#2f6fed;--accent2:#1f55c9;--good:#178a4a;--good-bg:#e5f6ec;--bad:#c93a3a;--bad-bg:#fdeaea;--key:#fff6d8;--keyb:#e8b923;--line:#e1e6ef;--hl:#e3edff;--hlink:#1d4fc4;--warn-bg:#fff1e6;--warnb:#f08a3c;--ex:#f7f9fd}
+@media (prefers-color-scheme:dark){:root{--bg:#0f131a;--card:#191f2a;--ink:#e8ecf3;--muted:#a2acbe;--accent:#5b8dff;--accent2:#7aa3ff;--good:#43d17f;--good-bg:#15301f;--bad:#ff7070;--bad-bg:#3a1c1c;--key:#2c2713;--keyb:#c99c1e;--line:#2b3342;--hl:#1c2b4b;--hlink:#a6c1ff;--warn-bg:#33231a;--warnb:#e07a2f;--ex:#141a24}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:40px}
+.wrap{max-width:720px;margin:0 auto;padding:0 14px}
+#topbar{position:sticky;top:0;z-index:10;height:6px;background:var(--line)}
+#topfill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+.hero{background:linear-gradient(135deg,#2f6fed,#6a4fe0);color:#fff;padding:28px 0 26px}
+.hero h1{margin:4px 0 10px;font-size:1.75rem;line-height:1.2}
+.hero p{margin:0;opacity:.95}
+.kicker{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;opacity:.85!important}
+.card{background:var(--card);border-radius:16px;padding:18px 16px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+h2{font-size:1.45rem;line-height:1.25;margin:4px 0 12px}
+h3{font-size:1.12rem;margin:22px 0 8px}
+p{margin:10px 0}
+a{color:var(--accent)}
+.secnum{display:inline-block;background:var(--accent);color:#fff;border-radius:10px;padding:0 10px;margin-right:6px;font-size:1rem;vertical-align:middle}
+.key{background:var(--key);border-left:5px solid var(--keyb);border-radius:10px;padding:12px 14px;margin:16px 0}
+.key b:first-child{display:block;margin-bottom:4px}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warnb);border-radius:10px;padding:12px 14px;margin:18px 0}
+.warn ul{margin:6px 0 0;padding-left:20px}.warn li{margin:6px 0}
+.example{background:var(--ex);border:1px solid var(--line);border-radius:12px;padding:12px;margin:14px 0}
+.example .label{font-weight:700;color:var(--accent2);margin:0 0 4px}
+ol.steps{list-style:none;margin:8px 0 0;padding:0;counter-reset:st}
+ol.steps li{border-top:1px dashed var(--line);padding:8px 0 8px 34px;position:relative;counter-increment:st}
+ol.steps li:first-child{border-top:0}
+ol.steps li::before{content:counter(st);position:absolute;left:0;top:10px;width:24px;height:24px;border-radius:50%;background:var(--hl);color:var(--hlink);font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+ol.steps .m{display:block;font-size:1.2rem}
+ol.steps .why{display:block;color:var(--muted);font-size:.95rem}
+.m{font-family:"Cambria Math","STIX Two Math","Times New Roman",Georgia,serif;white-space:nowrap;font-size:1.08em}
+.m i{font-style:italic;font-weight:600}
+.m.big{display:block;font-size:1.55rem;margin:6px 0;white-space:normal}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.1;margin:0 2px;font-size:.92em}
+.frac .nu{border-bottom:1.5px solid currentColor;padding:0 3px}
+.frac .de{padding:0 3px}
+.hl{background:var(--hl);color:var(--hlink);border-radius:5px;padding:0 3px;font-weight:600}
+table.inv{border-collapse:collapse;width:100%;margin:10px 0}
+table.inv th,table.inv td{border:1px solid var(--line);padding:8px;text-align:center}
+table.inv th{background:var(--ex)}
+.rules{padding-left:20px}.rules li{margin:8px 0}
+svg.scale{display:block;width:100%;max-width:340px;margin:8px auto;color:var(--ink)}
+/* progress */
+.ptext{font-weight:600;margin:8px 0}
+.pbar{height:14px;background:var(--line);border-radius:8px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+ul.checklist{list-style:none;padding:0;margin:12px 0 0}
+ul.checklist li{margin:0}
+ul.checklist a{display:flex;align-items:center;gap:10px;padding:11px 8px;min-height:48px;text-decoration:none;color:var(--ink);border-top:1px solid var(--line)}
+ul.checklist .dot{flex:0 0 26px;height:26px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700}
+ul.checklist .done .dot{background:var(--good);border-color:var(--good);color:#fff}
+ul.checklist .started .dot{border-color:var(--accent)}
+ul.checklist .ct{flex:1}
+ul.checklist .sc{color:var(--muted);font-size:.9rem;white-space:nowrap}
+.tips{font-size:.95rem;color:var(--muted)}
+/* quiz */
+.quiz{border-top:3px solid var(--accent);margin-top:22px;padding-top:6px}
+.quiz-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.quiz-head h3{margin:12px 0}
+.score{background:var(--hl);color:var(--hlink);font-weight:700;border-radius:20px;padding:4px 12px;white-space:nowrap}
+.q{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0}
+.q.ok{border-color:var(--good);background:var(--good-bg)}
+.qnum{font-size:.85rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.qtext{margin:4px 0 8px}
+.ansrow{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.ansrow .pre{font-family:"Cambria Math","Times New Roman",Georgia,serif;font-size:1.3rem;font-style:italic;white-space:nowrap}
+.ansrow input{flex:1;min-width:0;font-size:1.25rem;padding:10px 12px;min-height:50px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.ansrow input:focus{outline:none;border-color:var(--accent)}
+.q.ok input{border-color:var(--good)}
+button{font:inherit;cursor:pointer;border-radius:10px;min-height:48px;padding:8px 14px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-weight:600;touch-action:manipulation}
+button:active{transform:translateY(1px)}
+button.primary{background:var(--accent);color:#fff}
+button.pm{min-width:54px;font-size:1.3rem;padding:6px}
+.btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btns button{flex:1 1 30%;padding:8px 6px;font-size:.95rem;white-space:nowrap}
+.fb{margin-top:10px;font-weight:600;min-height:0}
+.fb.good{color:var(--good)}.fb.bad{color:var(--bad)}.fb.info{color:var(--muted)}
+.hintbox{background:var(--key);border-radius:10px;padding:10px 12px;margin-top:10px}
+.sol{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px}
+.sol .solt{font-weight:700;margin:0}
+.quiz-foot{text-align:center;margin-top:8px}
+.summary{font-weight:600}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.nav a{display:inline-flex;align-items:center;min-height:48px;padding:0 6px;font-weight:600}
+.finish{background:var(--good-bg);border:2px solid var(--good);border-radius:12px;padding:14px;text-align:center;font-weight:600}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+footer{text-align:center;color:var(--muted);font-size:.9rem}
+[hidden]{display:none!important}
+@media (min-width:600px){.hero h1{font-size:2.1rem}.card{padding:22px 24px}}
+</style>
+</head>
+<body>
+<div id="topbar"><div id="topfill"></div></div>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Pre-Algebra · Solving Equations</p>
+    <h1>Solving Equations, Step by Step</h1>
+    <p>Hey Caleb! This guide walks through solving equations one skill at a time. Read a section, look at the examples, then try the quiz at the end. Your progress saves on this phone, so you can stop and come back anytime.</p>
+  </div>
+</header>
+<main class="wrap">
+
+<nav class="card" id="top" aria-label="Progress">
+  <h2 style="margin-bottom:6px">Your progress</h2>
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  <p class="ptext" id="ptext">0 questions done</p>
+  <ul class="checklist" id="checklist"></ul>
+  <p class="tips"><b>Typing answers:</b> type a number like <b>5</b>, <b>-3</b>, <b>2.5</b>, or <b>7/2</b>. No minus key? Tap the <b>±</b> button. Stuck? Tap <b>Hint</b>. Want to see how it's done? Tap <b>Show steps</b>.</p>
+</nav>
+<!-- ===================== SECTION 1 ===================== -->
+<section class="card" id="s1">
+  <h2><span class="secnum">1</span>What Is an Equation?</h2>
+  <p>An <b>equation</b> says that two things are equal. Think of the <b>=</b> sign as the middle of a balance scale: whatever is on the left side weighs exactly the same as what's on the right side.</p>
+  <svg class="scale" viewBox="0 0 320 175" role="img" aria-label="A level balance scale with x + 3 on the left pan and 8 on the right pan">
+    <rect x="115" y="160" width="90" height="9" rx="4" style="fill:currentColor;opacity:.3"/>
+    <polygon points="160,62 148,160 172,160" style="fill:currentColor;opacity:.3"/>
+    <rect x="35" y="56" width="250" height="7" rx="3" style="fill:currentColor;opacity:.65"/>
+    <circle cx="160" cy="59" r="8" style="fill:#2f6fed"/>
+    <line x1="70" y1="62" x2="35" y2="122" style="stroke:currentColor;stroke-width:2;opacity:.6"/>
+    <line x1="70" y1="62" x2="105" y2="122" style="stroke:currentColor;stroke-width:2;opacity:.6"/>
+    <line x1="250" y1="62" x2="215" y2="122" style="stroke:currentColor;stroke-width:2;opacity:.6"/>
+    <line x1="250" y1="62" x2="285" y2="122" style="stroke:currentColor;stroke-width:2;opacity:.6"/>
+    <path d="M25 122 h90 a45 16 0 0 1 -90 0z" style="fill:#2f6fed;opacity:.85"/>
+    <path d="M205 122 h90 a45 16 0 0 1 -90 0z" style="fill:#2f6fed;opacity:.85"/>
+    <rect x="38" y="90" width="64" height="30" rx="7" style="fill:#ffd65c"/>
+    <text x="70" y="111" text-anchor="middle" style="font:italic 700 18px Georgia,serif;fill:#1c2333">x + 3</text>
+    <rect x="228" y="90" width="44" height="30" rx="7" style="fill:#ffd65c"/>
+    <text x="250" y="111" text-anchor="middle" style="font:700 18px Georgia,serif;fill:#1c2333">8</text>
+    <text x="160" y="30" text-anchor="middle" style="font:700 22px Georgia,serif;fill:currentColor">=</text>
+  </svg>
+  <p><b>Solving</b> an equation means finding the number that <span class="m">x</span> stands for, the one number that makes both sides truly equal. On this scale, <span class="m">x = 5</span>, because <span class="m">5 + 3 = 8</span>.</p>
+  <p>To find <span class="m">x</span>, you get it <b>alone</b> on one side. You do that with <b>inverse operations</b>, which are operations that undo each other:</p>
+  <table class="inv">
+    <tr><th>If x has…</th><th>Undo it by…</th></tr>
+    <tr><td>adding (<span class="m">+ 3</span>)</td><td>subtracting (<span class="m">- 3</span>)</td></tr>
+    <tr><td>subtracting (<span class="m">- 8</span>)</td><td>adding (<span class="m">+ 8</span>)</td></tr>
+    <tr><td>multiplying (<span class="m">5x</span>)</td><td>dividing (<span class="m">÷ 5</span>)</td></tr>
+    <tr><td>dividing (<span class="m">x/4</span>)</td><td>multiplying (<span class="m">· 4</span>)</td></tr>
+  </table>
+  <div class="key"><b>🔑 Key idea</b>Whatever you do to one side, you must do to the other side. That keeps the scale balanced. Use the <b>opposite</b> (inverse) operation to undo what's being done to x.</div>
+
+  <h3>Quick refresh: negative numbers</h3>
+  <p>Negatives cause more wrong answers than anything else in equations, so here are the rules in one place:</p>
+  <ul class="rules">
+    <li><b>Adding, same signs:</b> add and keep the sign. <span class="m">-4 + (-9) = -13</span></li>
+    <li><b>Adding, different signs:</b> subtract the smaller from the bigger (ignore the signs), then keep the sign of the bigger one. <span class="m">-7 + 12 = 5</span></li>
+    <li><b>Subtracting:</b> change it to adding the opposite. <span class="m">6 - (-5) = 6 + 5 = 11</span></li>
+    <li><b>Multiplying or dividing:</b> same signs → positive; different signs → negative. <span class="m">(-3)(-4) = 12</span> and <span class="m">-18 ÷ 3 = -6</span></li>
+  </ul>
+
+  <div class="example"><p class="label">Example 1: Is x = 5 a solution of x + 3 = 8?</p>
+    <ol class="steps" data-x="5">
+      <li><span class="m">x + 3 = 8</span><span class="why">Start with the equation.</span></li>
+      <li><span class="m">5 + 3 = 8</span><span class="why">Replace x with 5.</span></li>
+      <li><span class="m">8 = 8</span><span class="why">Both sides match, so yes: x = 5 is the solution.</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 2: Adding and subtracting negatives</p>
+    <ol class="steps">
+      <li><span class="m">-7 + 12 = 5</span><span class="why">Different signs: 12 − 7 = 5. The 12 is bigger and positive, so the answer is positive.</span></li>
+      <li><span class="m">6 - (-5) = 6 + 5</span><span class="why">Subtracting a negative is the same as adding a positive.</span></li>
+      <li><span class="m">6 + 5 = 11</span><span class="why">Now just add.</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 3: Multiplying and dividing negatives</p>
+    <ol class="steps">
+      <li><span class="m">(-3)(-4) = 12</span><span class="why">Same signs (both negative) → positive.</span></li>
+      <li><span class="m">-18 ÷ 3 = -6</span><span class="why">Different signs → negative.</span></li>
+      <li><span class="m">-20 ÷ (-5) = 4</span><span class="why">Same signs → positive.</span></li>
+    </ol></div>
+  <div class="warn"><b>⚠️ Common mistakes</b>
+    <ul>
+      <li>Doing something to only one side. If you subtract 3 on the left, subtract 3 on the right too.</li>
+      <li><span class="m">-4 - 9</span> is <span class="m">-13</span>, not 5 or −5. Think money: you owe $4, then spend $9 more, so now you owe $13.</li>
+      <li>Two negatives make a positive only when you <b>multiply or divide</b>. <span class="m">-4 + (-9)</span> is still negative.</li>
+    </ul></div>
+  <div id="quiz-s1"></div>
+  <div class="nav"><a href="#top">↑ Progress</a><a href="#s2">Next: One-step (+/−) →</a></div>
+</section>
+
+<!-- ===================== SECTION 2 ===================== -->
+<section class="card" id="s2">
+  <h2><span class="secnum">2</span>One-Step Equations: Adding &amp; Subtracting</h2>
+  <p>In these equations, a number is being <b>added to</b> or <b>subtracted from</b> x. To get x alone, undo that number with the opposite operation, on <b>both</b> sides.</p>
+  <div class="key"><b>🔑 Key idea</b>If a number is <b>added</b> to x, <b>subtract</b> it from both sides.<br>If a number is <b>subtracted</b> from x, <b>add</b> it to both sides.</div>
+  <p>The blue highlights in the steps show what was done to both sides.</p>
+  <div class="example"><p class="label">Example 1: x − 8 = −3</p>
+    <ol class="steps" data-x="5">
+      <li><span class="m">x - 8 = -3</span><span class="why">8 is being subtracted from x.</span></li>
+      <li><span class="m">x - 8 [[+ 8]] = -3 [[+ 8]]</span><span class="why">Add 8 to both sides to undo the − 8.</span></li>
+      <li><span class="m">x = 5</span><span class="why">On the left, −8 + 8 = 0, leaving just x. On the right, −3 + 8 = 5.</span></li>
+      <li><span class="m">5 - 8 = -3</span><span class="why">Check: put 5 back in for x. It works! ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 2: x + 9 = 4</p>
+    <ol class="steps" data-x="-5">
+      <li><span class="m">x + 9 = 4</span><span class="why">9 is being added to x.</span></li>
+      <li><span class="m">x + 9 [[- 9]] = 4 [[- 9]]</span><span class="why">Subtract 9 from both sides.</span></li>
+      <li><span class="m">x = -5</span><span class="why">4 − 9 = −5. Answers can be negative!</span></li>
+      <li><span class="m">-5 + 9 = 4</span><span class="why">Check ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 3: 14 = x + 20 (x on the right)</p>
+    <ol class="steps" data-x="-6">
+      <li><span class="m">14 = x + 20</span><span class="why">x can be on the right side. That's fine, since the = works both ways.</span></li>
+      <li><span class="m">14 [[- 20]] = x + 20 [[- 20]]</span><span class="why">Subtract 20 from both sides.</span></li>
+      <li><span class="m">-6 = x</span><span class="why">14 − 20 = −6.</span></li>
+      <li><span class="m">x = -6</span><span class="why">Flip it around if you like. It means the same thing.</span></li>
+    </ol></div>
+  <div class="warn"><b>⚠️ Common mistakes</b>
+    <ul>
+      <li>Using the <b>same</b> operation instead of the opposite. For <span class="m">x - 8 = -3</span>, subtracting 8 gives <span class="m">x - 16 = -11</span>, which is further from the answer. Undo minus with plus.</li>
+      <li>Sign slips: <span class="m">-3 + 8</span> is <span class="m">5</span>, not −11 or 11.</li>
+    </ul></div>
+  <div id="quiz-s2"></div>
+  <div class="nav"><a href="#top">↑ Progress</a><a href="#s3">Next: One-step (× / ÷) →</a></div>
+</section>
+
+<!-- ===================== SECTION 3 ===================== -->
+<section class="card" id="s3">
+  <h2><span class="secnum">3</span>One-Step Equations: Multiplying &amp; Dividing</h2>
+  <p>A number written right next to x, like <span class="m">5x</span>, means <b>5 times x</b>. To undo multiplying, <b>divide</b>. When x is divided by a number, like <span class="m">x/4</span>, undo it by <b>multiplying</b>.</p>
+  <div class="key"><b>🔑 Key idea</b><span class="m">5x</span> means 5 · x → <b>divide</b> both sides by 5.<br><span class="m">x/4</span> means x ÷ 4 → <b>multiply</b> both sides by 4.<br>Keep the sign: for <span class="m">-3x</span>, divide by <b>−3</b>.</div>
+  <div class="example"><p class="label">Example 1: 5x = 35</p>
+    <ol class="steps" data-x="7">
+      <li><span class="m">5x = 35</span><span class="why">x is multiplied by 5.</span></li>
+      <li><span class="m">5x [[÷ 5]] = 35 [[÷ 5]]</span><span class="why">Divide both sides by 5.</span></li>
+      <li><span class="m">x = 7</span><span class="why">5x ÷ 5 is just x, and 35 ÷ 5 = 7.</span></li>
+      <li><span class="m">5(7) = 35</span><span class="why">Check ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 2: x/4 = 7</p>
+    <ol class="steps" data-x="28">
+      <li><span class="m">x/4 = 7</span><span class="why">x is divided by 4.</span></li>
+      <li><span class="m">x/4 [[· 4]] = 7 [[· 4]]</span><span class="why">Multiply both sides by 4.</span></li>
+      <li><span class="m">x = 28</span><span class="why">Dividing by 4 and multiplying by 4 cancel out. 7 · 4 = 28.</span></li>
+      <li><span class="m">28/4 = 7</span><span class="why">Check ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 3: −3x = 18</p>
+    <ol class="steps" data-x="-6">
+      <li><span class="m">-3x = 18</span><span class="why">x is multiplied by −3. The negative sign goes with the 3.</span></li>
+      <li><span class="m">-3x [[÷ (-3)]] = 18 [[÷ (-3)]]</span><span class="why">Divide both sides by −3.</span></li>
+      <li><span class="m">x = -6</span><span class="why">Positive ÷ negative = negative.</span></li>
+      <li><span class="m">-3(-6) = 18</span><span class="why">Check: negative times negative is positive ✓</span></li>
+    </ol></div>
+  <p>Answers don't have to be whole numbers. For <span class="m">2x = 7</span>, <span class="m">x = 7/2</span>, which is 3.5. You can type either one.</p>
+  <div class="warn"><b>⚠️ Common mistakes</b>
+    <ul>
+      <li>Subtracting instead of dividing: for <span class="m">5x = 35</span>, the 5 is <b>multiplying</b>, so x is not 30. Divide to get 7.</li>
+      <li>Dropping the negative: <span class="m">-3x = 18</span> gives <span class="m">x = -6</span>, not 6.</li>
+      <li>For <span class="m">x/4 = 7</span>, dividing by 4 gives the wrong answer. x is already divided by 4, so <b>multiply</b>.</li>
+    </ul></div>
+  <div id="quiz-s3"></div>
+  <div class="nav"><a href="#top">↑ Progress</a><a href="#s4">Next: Two-step →</a></div>
+</section>
+
+<!-- ===================== SECTION 4 ===================== -->
+<section class="card" id="s4">
+  <h2><span class="secnum">4</span>Two-Step Equations</h2>
+  <p>Now x has <b>two</b> things happening to it. In <span class="m">2x + 3</span>, x is multiplied by 2, then 3 is added. To undo it, work <b>backwards</b>: undo the adding or subtracting first, then the multiplying or dividing.</p>
+  <p>Think of socks and shoes: socks go on first, then shoes. To take them off, the shoes come off first. Undo the last thing first.</p>
+  <div class="key"><b>🔑 Key idea: undo in reverse order</b><b>Step 1:</b> Undo the + or − (get the x-term by itself).<br><b>Step 2:</b> Undo the × or ÷ (get x alone).</div>
+  <div class="example"><p class="label">Example 1: 2x + 3 = 13</p>
+    <ol class="steps" data-x="5">
+      <li><span class="m">2x + 3 = 13</span><span class="why">x is times 2, then plus 3.</span></li>
+      <li><span class="m">2x + 3 [[- 3]] = 13 [[- 3]]</span><span class="why">Step 1: undo + 3 by subtracting 3 from both sides.</span></li>
+      <li><span class="m">2x = 10</span><span class="why">Now it's a one-step equation.</span></li>
+      <li><span class="m">2x [[÷ 2]] = 10 [[÷ 2]]</span><span class="why">Step 2: undo × 2 by dividing both sides by 2.</span></li>
+      <li><span class="m">x = 5</span><span class="why">Solved.</span></li>
+      <li><span class="m">2(5) + 3 = 13</span><span class="why">Check: 10 + 3 = 13 ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 2: 4x − 7 = −19</p>
+    <ol class="steps" data-x="-3">
+      <li><span class="m">4x - 7 = -19</span><span class="why">x is times 4, then minus 7.</span></li>
+      <li><span class="m">4x - 7 [[+ 7]] = -19 [[+ 7]]</span><span class="why">Undo − 7 by adding 7 to both sides.</span></li>
+      <li><span class="m">4x = -12</span><span class="why">−19 + 7 = −12 (different signs: 19 − 7 = 12, and the bigger number was negative).</span></li>
+      <li><span class="m">4x [[÷ 4]] = -12 [[÷ 4]]</span><span class="why">Divide both sides by 4.</span></li>
+      <li><span class="m">x = -3</span><span class="why">Negative ÷ positive = negative.</span></li>
+      <li><span class="m">4(-3) - 7 = -19</span><span class="why">Check: −12 − 7 = −19 ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 3: x/3 + 2 = 5</p>
+    <ol class="steps" data-x="9">
+      <li><span class="m">x/3 + 2 = 5</span><span class="why">x is divided by 3, then plus 2.</span></li>
+      <li><span class="m">x/3 + 2 [[- 2]] = 5 [[- 2]]</span><span class="why">Undo + 2 by subtracting 2 from both sides.</span></li>
+      <li><span class="m">x/3 = 3</span><span class="why">One step left.</span></li>
+      <li><span class="m">x/3 [[· 3]] = 3 [[· 3]]</span><span class="why">Undo ÷ 3 by multiplying both sides by 3.</span></li>
+      <li><span class="m">x = 9</span><span class="why">Solved.</span></li>
+      <li><span class="m">9/3 + 2 = 5</span><span class="why">Check: 3 + 2 = 5 ✓</span></li>
+    </ol></div>
+  <div class="warn"><b>⚠️ Common mistakes</b>
+    <ul>
+      <li>Dividing just part of a side. For <span class="m">2x + 3 = 13</span>, dividing only the 2x by 2 (and not the 3) breaks the balance. Get rid of the + 3 first.</li>
+      <li>Sign slips with negatives: <span class="m">-19 + 7 = -12</span>, not −26.</li>
+    </ul></div>
+  <div id="quiz-s4"></div>
+  <div class="nav"><a href="#top">↑ Progress</a><a href="#s5">Next: Distribute &amp; combine →</a></div>
+</section>
+
+<!-- ===================== SECTION 5 ===================== -->
+<section class="card" id="s5">
+  <h2><span class="secnum">5</span>Distributive Property &amp; Combining Like Terms</h2>
+  <p>Sometimes an equation needs cleaning up before you can solve it. Two cleanup tools:</p>
+  <ul class="rules">
+    <li><b>Distributive property:</b> a number outside parentheses multiplies <b>everything</b> inside. <span class="m">3(x + 2) = 3x + 6</span></li>
+    <li><b>Combining like terms:</b> x-terms add together (<span class="m">2x + 5x = 7x</span>), and plain numbers add together. But an x-term and a plain number can't be combined, so <span class="m">3x + 4</span> stays <span class="m">3x + 4</span>.</li>
+  </ul>
+  <div class="key"><b>🔑 Key idea</b>Clean up each side first (distribute, then combine like terms). Then solve it like a two-step equation.</div>
+  <div class="example"><p class="label">Example 1: 3(x + 2) = 21</p>
+    <ol class="steps" data-x="5">
+      <li><span class="m">3(x + 2) = 21</span><span class="why">The 3 multiplies everything in the parentheses.</span></li>
+      <li><span class="m">3x + 6 = 21</span><span class="why">Distribute: 3 · x = 3x and 3 · 2 = 6.</span></li>
+      <li><span class="m">3x + 6 [[- 6]] = 21 [[- 6]]</span><span class="why">Subtract 6 from both sides.</span></li>
+      <li><span class="m">3x = 15</span><span class="why">21 − 6 = 15.</span></li>
+      <li><span class="m">x = 5</span><span class="why">Divide both sides by 3.</span></li>
+      <li><span class="m">3(5 + 2) = 21</span><span class="why">Check: 3 · 7 = 21 ✓</span></li>
+    </ol>
+    <p class="tips">Shortcut: you could also divide both sides by 3 first to get x + 2 = 7, so x = 5.</p></div>
+  <div class="example"><p class="label">Example 2: 2x + 5x − 4 = 17</p>
+    <ol class="steps" data-x="3">
+      <li><span class="m">2x + 5x - 4 = 17</span><span class="why">Two x-terms on the left.</span></li>
+      <li><span class="m">7x - 4 = 17</span><span class="why">Combine like terms: 2x + 5x = 7x.</span></li>
+      <li><span class="m">7x - 4 [[+ 4]] = 17 [[+ 4]]</span><span class="why">Add 4 to both sides.</span></li>
+      <li><span class="m">7x = 21</span><span class="why">17 + 4 = 21.</span></li>
+      <li><span class="m">x = 3</span><span class="why">Divide both sides by 7.</span></li>
+      <li><span class="m">2(3) + 5(3) - 4 = 17</span><span class="why">Check: 6 + 15 − 4 = 17 ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 3: −2(x − 4) = 14</p>
+    <ol class="steps" data-x="-3">
+      <li><span class="m">-2(x - 4) = 14</span><span class="why">Distribute the −2, sign included.</span></li>
+      <li><span class="m">-2x + 8 = 14</span><span class="why">−2 · x = −2x, and −2 · (−4) = +8 (negative times negative).</span></li>
+      <li><span class="m">-2x + 8 [[- 8]] = 14 [[- 8]]</span><span class="why">Subtract 8 from both sides.</span></li>
+      <li><span class="m">-2x = 6</span><span class="why">14 − 8 = 6.</span></li>
+      <li><span class="m">x = -3</span><span class="why">Divide both sides by −2.</span></li>
+      <li><span class="m">-2(-3 - 4) = 14</span><span class="why">Check: −2 · (−7) = 14 ✓</span></li>
+    </ol></div>
+  <div class="warn"><b>⚠️ Common mistakes</b>
+    <ul>
+      <li>Only multiplying the first term: <span class="m">3(x + 2)</span> is <span class="m">3x + 6</span>, not 3x + 2.</li>
+      <li>Losing the sign: <span class="m">-2(x - 4)</span> is <span class="m">-2x + 8</span>, because negative × negative = positive.</li>
+      <li>Combining unlike terms: <span class="m">3x + 4</span> is <b>not</b> 7x.</li>
+    </ul></div>
+  <div id="quiz-s5"></div>
+  <div class="nav"><a href="#top">↑ Progress</a><a href="#s6">Next: x on both sides →</a></div>
+</section>
+
+<!-- ===================== SECTION 6 ===================== -->
+<section class="card" id="s6">
+  <h2><span class="secnum">6</span>Variables on Both Sides (and Checking Your Answer)</h2>
+  <p>When x shows up on <b>both</b> sides, your first job is to get all the x-terms on one side. Subtract one of the x-terms from both sides, and then it's a two-step equation you already know how to solve.</p>
+  <p><b>Tip:</b> move the <b>smaller</b> x-term. That way, the x-term you keep stays positive.</p>
+  <div class="key"><b>🔑 Key idea</b><b>1.</b> Get the x-terms on one side. <b>2.</b> Get the numbers on the other side. <b>3.</b> Divide. <b>4.</b> Check: plug your answer into the <b>original</b> equation. If both sides come out equal, you're right.</div>
+  <div class="example"><p class="label">Example 1: 5x + 4 = 2x + 16</p>
+    <ol class="steps" data-x="4">
+      <li><span class="m">5x + 4 = 2x + 16</span><span class="why">x on both sides. 2x is the smaller x-term.</span></li>
+      <li><span class="m">5x + 4 [[- 2x]] = 2x + 16 [[- 2x]]</span><span class="why">Subtract 2x from both sides.</span></li>
+      <li><span class="m">3x + 4 = 16</span><span class="why">5x − 2x = 3x, and the x on the right is gone.</span></li>
+      <li><span class="m">3x + 4 [[- 4]] = 16 [[- 4]]</span><span class="why">Subtract 4 from both sides.</span></li>
+      <li><span class="m">3x = 12</span><span class="why">16 − 4 = 12.</span></li>
+      <li><span class="m">x = 4</span><span class="why">Divide both sides by 3.</span></li>
+      <li><span class="m">5(4) + 4 = 24</span><span class="why">Check the left side with x = 4.</span></li>
+      <li><span class="m">2(4) + 16 = 24</span><span class="why">Check the right side with x = 4. Both are 24 ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 2: 3x − 5 = 7x + 11</p>
+    <ol class="steps" data-x="-4">
+      <li><span class="m">3x - 5 = 7x + 11</span><span class="why">3x is the smaller x-term.</span></li>
+      <li><span class="m">3x - 5 [[- 3x]] = 7x + 11 [[- 3x]]</span><span class="why">Subtract 3x from both sides.</span></li>
+      <li><span class="m">-5 = 4x + 11</span><span class="why">Now x is only on the right.</span></li>
+      <li><span class="m">-5 [[- 11]] = 4x + 11 [[- 11]]</span><span class="why">Subtract 11 from both sides.</span></li>
+      <li><span class="m">-16 = 4x</span><span class="why">−5 − 11 = −16.</span></li>
+      <li><span class="m">x = -4</span><span class="why">Divide both sides by 4.</span></li>
+      <li><span class="m">3(-4) - 5 = -17</span><span class="why">Check left: −12 − 5 = −17.</span></li>
+      <li><span class="m">7(-4) + 11 = -17</span><span class="why">Check right: −28 + 11 = −17. They match ✓</span></li>
+    </ol></div>
+  <div class="example"><p class="label">Example 3: Checking catches a mistake</p>
+    <p>A friend says x = 3 solves <span class="m">2(x + 1) = x + 7</span>. Let's check.</p>
+    <ol class="steps" data-x="5">
+      <li><span class="m">2(3 + 1) = 8</span><span class="why">Left side with x = 3.</span></li>
+      <li><span class="m">3 + 7 = 10</span><span class="why">Right side with x = 3. 8 and 10 don't match, so x = 3 is wrong.</span></li>
+      <li><span class="m">2x + 2 = x + 7</span><span class="why">Solve it properly. First distribute the 2.</span></li>
+      <li><span class="m">2x + 2 [[- x]] = x + 7 [[- x]]</span><span class="why">Subtract x from both sides.</span></li>
+      <li><span class="m">x + 2 = 7</span><span class="why">2x − x = x.</span></li>
+      <li><span class="m">x = 5</span><span class="why">Subtract 2 from both sides.</span></li>
+      <li><span class="m">2(5 + 1) = 5 + 7</span><span class="why">Check: 12 = 12 ✓</span></li>
+    </ol></div>
+  <div class="warn"><b>⚠️ Common mistakes</b>
+    <ul>
+      <li>Subtracting an x-term from only one side.</li>
+      <li>Writing <span class="m">5x - 2x</span> as 3 instead of <span class="m">3x</span>. Don't drop the x!</li>
+      <li>Checking with a later step instead of the original equation. Always check in the <b>original</b>.</li>
+    </ul></div>
+  <div id="quiz-s6"></div>
+  <div class="nav"><a href="#top">↑ Progress</a><a href="#final">Next: Final review →</a></div>
+</section>
+
+<!-- ===================== FINAL ===================== -->
+<section class="card" id="final">
+  <h2><span class="secnum">★</span>Final Mixed Review</h2>
+  <p>This quiz mixes every type of equation from the guide. For each one, first figure out what kind it is (one-step? two-step? parentheses? x on both sides?), then use the matching steps. If you get stuck, scroll back up to that section.</p>
+  <div id="quiz-final"></div>
+  <div id="finishbox" class="finish" hidden>🎉 You finished every question in the guide! Solving equations is a skill you now have. Bring it to class.</div>
+  <div class="nav"><a href="#top">↑ Back to progress</a></div>
+</section>
+
+<footer>
+  <p>Progress is saved on this device only.</p>
+  <p><button type="button" id="resetall">Reset all progress</button></p>
+</footer>
+</main>
+<script>
+/* ---------- QUIZ DATA ----------
+   eq: equation in x (solved for checking); expr: arithmetic expression; a: answer.
+   steps: [math, reason]. [[...]] marks what is done to both sides. */
+window.QUIZ = [
+ {id:'s1', title:'What Is an Equation?', short:'What an equation is', qs:[
+  {prompt:'Simplify:', expr:'-7 + 12', a:5, hint:'The signs are different, so subtract 12 − 7. Keep the sign of the bigger number.',
+   steps:[['-7 + 12 = 12 - 7','Different signs: subtract the smaller from the bigger.'],['12 - 7 = 5','12 is the bigger number and it is positive, so the answer is positive.']]},
+  {prompt:'Simplify:', expr:'-4 - 9', a:-13, hint:'Subtracting 9 is the same as adding −9. Now both numbers are negative.',
+   steps:[['-4 - 9 = -4 + (-9)','Subtracting 9 means adding −9.'],['-4 + (-9) = -13','Same signs: add 4 + 9 = 13 and keep the negative sign.']]},
+  {prompt:'Simplify:', expr:'6 - (-5)', a:11, hint:'Subtracting a negative is the same as adding a positive.',
+   steps:[['6 - (-5) = 6 + 5','Change "minus negative 5" to "plus 5".'],['6 + 5 = 11','Add.']]},
+  {prompt:'Simplify:', expr:'(-6)(-3)', a:18, hint:'6 · 3 = 18. Now, what does negative times negative give?',
+   steps:[['(-6)(-3) = 18','6 · 3 = 18, and two negatives multiplied make a positive.']]},
+  {prompt:'Simplify:', expr:'-24 ÷ 4', a:-6, hint:'24 ÷ 4 = 6. The signs are different, so the answer is...?',
+   steps:[['-24 ÷ 4 = -6','24 ÷ 4 = 6, and different signs make a negative.']]},
+  {prompt:'If `x = 3`, what does `4x - 5` equal?', expr:'4*3 - 5', x:3, a:7, hint:'Replace x with 3. Multiply first, then subtract.',
+   steps:[['4x - 5 = 4(3) - 5','Replace x with 3.'],['4(3) - 5 = 12 - 5','Multiply first: 4 · 3 = 12.'],['12 - 5 = 7','Then subtract.']]}
+ ]},
+ {id:'s2', title:'One-Step Equations: Adding & Subtracting', short:'One-step: + and −', qs:[
+  {eq:'x + 7 = 19', a:12, hint:'7 is being added to x. What undoes adding 7?',
+   steps:[['x + 7 [[- 7]] = 19 [[- 7]]','Subtract 7 from both sides.'],['x = 12','19 − 7 = 12.']]},
+  {eq:'x - 5 = 9', a:14, hint:'5 is being subtracted from x. Undo it by adding 5 to both sides.',
+   steps:[['x - 5 [[+ 5]] = 9 [[+ 5]]','Add 5 to both sides.'],['x = 14','9 + 5 = 14.']]},
+  {eq:'x + 11 = 4', a:-7, hint:'Subtract 11 from both sides. 4 − 11 will be negative.',
+   steps:[['x + 11 [[- 11]] = 4 [[- 11]]','Subtract 11 from both sides.'],['x = -7','4 − 11 = −7.']]},
+  {eq:'x - 6 = -10', a:-4, hint:'Add 6 to both sides. What is −10 + 6?',
+   steps:[['x - 6 [[+ 6]] = -10 [[+ 6]]','Add 6 to both sides.'],['x = -4','−10 + 6 = −4 (different signs: 10 − 6 = 4, and the bigger number was negative).']]},
+  {eq:'15 = x - 4', a:19, hint:'x is on the right this time. Add 4 to both sides.',
+   steps:[['15 [[+ 4]] = x - 4 [[+ 4]]','Add 4 to both sides.'],['19 = x','15 + 4 = 19, so x = 19.']]},
+  {eq:'x + 2.5 = 7', a:4.5, hint:'Decimals work the same way. Subtract 2.5 from both sides.',
+   steps:[['x + 2.5 [[- 2.5]] = 7 [[- 2.5]]','Subtract 2.5 from both sides.'],['x = 4.5','7 − 2.5 = 4.5 (you could also type 9/2).']]}
+ ]},
+ {id:'s3', title:'One-Step Equations: Multiplying & Dividing', short:'One-step: × and ÷', qs:[
+  {eq:'6x = 42', a:7, hint:'x is multiplied by 6. Divide both sides by 6.',
+   steps:[['6x [[÷ 6]] = 42 [[÷ 6]]','Divide both sides by 6.'],['x = 7','42 ÷ 6 = 7.']]},
+  {eq:'x/5 = 3', a:15, hint:'x is divided by 5. Multiply both sides by 5.',
+   steps:[['x/5 [[· 5]] = 3 [[· 5]]','Multiply both sides by 5.'],['x = 15','3 · 5 = 15.']]},
+  {eq:'-4x = 28', a:-7, hint:'Divide both sides by −4. Keep the negative!',
+   steps:[['-4x [[÷ (-4)]] = 28 [[÷ (-4)]]','Divide both sides by −4.'],['x = -7','28 ÷ 4 = 7, and positive ÷ negative = negative.']]},
+  {eq:'x/3 = -4', a:-12, hint:'x is divided by 3. Multiply both sides by 3.',
+   steps:[['x/3 [[· 3]] = -4 [[· 3]]','Multiply both sides by 3.'],['x = -12','−4 · 3 = −12.']]},
+  {eq:'-x = 7', a:-7, hint:'−x means −1 · x. Divide both sides by −1.',
+   steps:[['-x = 7','−x is the same as −1x.'],['-1x [[÷ (-1)]] = 7 [[÷ (-1)]]','Divide both sides by −1.'],['x = -7','7 ÷ (−1) = −7.']]},
+  {eq:'2x = 9', a:4.5, hint:'Divide both sides by 2. The answer doesn\'t have to be a whole number.',
+   steps:[['2x [[÷ 2]] = 9 [[÷ 2]]','Divide both sides by 2.'],['x = 9/2 = 4.5','You can type 9/2 or 4.5.']]}
+ ]},
+ {id:'s4', title:'Two-Step Equations', short:'Two-step equations', qs:[
+  {eq:'3x + 4 = 19', a:5, hint:'Undo the + 4 first (subtract 4 from both sides), then divide by 3.',
+   steps:[['3x + 4 [[- 4]] = 19 [[- 4]]','Step 1: undo + 4 by subtracting 4 from both sides.'],['3x = 15','19 − 4 = 15.'],['3x [[÷ 3]] = 15 [[÷ 3]]','Step 2: undo × 3 by dividing both sides by 3.'],['x = 5','15 ÷ 3 = 5.']]},
+  {eq:'5x - 2 = 28', a:6, hint:'Add 2 to both sides first, then divide by 5.',
+   steps:[['5x - 2 [[+ 2]] = 28 [[+ 2]]','Undo − 2 by adding 2 to both sides.'],['5x = 30','28 + 2 = 30.'],['5x [[÷ 5]] = 30 [[÷ 5]]','Divide both sides by 5.'],['x = 6','30 ÷ 5 = 6.']]},
+  {eq:'2x + 9 = 1', a:-4, hint:'Subtract 9 from both sides (1 − 9 is negative), then divide by 2.',
+   steps:[['2x + 9 [[- 9]] = 1 [[- 9]]','Subtract 9 from both sides.'],['2x = -8','1 − 9 = −8.'],['2x [[÷ 2]] = -8 [[÷ 2]]','Divide both sides by 2.'],['x = -4','−8 ÷ 2 = −4.']]},
+  {eq:'x/4 - 3 = 2', a:20, hint:'Add 3 to both sides, then multiply both sides by 4.',
+   steps:[['x/4 - 3 [[+ 3]] = 2 [[+ 3]]','Add 3 to both sides.'],['x/4 = 5','2 + 3 = 5.'],['x/4 [[· 4]] = 5 [[· 4]]','Multiply both sides by 4.'],['x = 20','5 · 4 = 20.']]},
+  {eq:'-2x + 5 = 17', a:-6, hint:'Subtract 5 from both sides first, then divide by −2.',
+   steps:[['-2x + 5 [[- 5]] = 17 [[- 5]]','Subtract 5 from both sides.'],['-2x = 12','17 − 5 = 12.'],['-2x [[÷ (-2)]] = 12 [[÷ (-2)]]','Divide both sides by −2.'],['x = -6','12 ÷ (−2) = −6.']]},
+  {eq:'7 = 4x - 9', a:4, hint:'x is on the right. Add 9 to both sides, then divide by 4.',
+   steps:[['7 [[+ 9]] = 4x - 9 [[+ 9]]','Add 9 to both sides.'],['16 = 4x','7 + 9 = 16.'],['16 [[÷ 4]] = 4x [[÷ 4]]','Divide both sides by 4.'],['4 = x','So x = 4.']]}
+ ]},
+ {id:'s5', title:'Distributive Property & Combining Like Terms', short:'Distribute & combine', qs:[
+  {eq:'4(x + 3) = 32', a:5, hint:'Distribute the 4 to both the x and the 3. Then solve the two-step equation.',
+   steps:[['4(x + 3) = 32','The 4 multiplies everything inside.'],['4x + 12 = 32','Distribute: 4 · x = 4x and 4 · 3 = 12.'],['4x + 12 [[- 12]] = 32 [[- 12]]','Subtract 12 from both sides.'],['4x = 20','32 − 12 = 20.'],['x = 5','Divide both sides by 4.']]},
+  {eq:'2(x - 6) = 10', a:11, hint:'Distribute: 2 · x and 2 · (−6). Then add to both sides.',
+   steps:[['2x - 12 = 10','Distribute: 2 · x = 2x and 2 · (−6) = −12.'],['2x - 12 [[+ 12]] = 10 [[+ 12]]','Add 12 to both sides.'],['2x = 22','10 + 12 = 22.'],['x = 11','Divide both sides by 2.']]},
+  {eq:'3x + 4x = 42', a:6, hint:'Combine the like terms first: 3x + 4x = ?',
+   steps:[['7x = 42','Combine like terms: 3x + 4x = 7x.'],['x = 6','Divide both sides by 7.']]},
+  {eq:'6x - 2x + 7 = 3', a:-1, hint:'Combine 6x − 2x first. Then subtract 7 from both sides.',
+   steps:[['4x + 7 = 3','Combine like terms: 6x − 2x = 4x.'],['4x + 7 [[- 7]] = 3 [[- 7]]','Subtract 7 from both sides.'],['4x = -4','3 − 7 = −4.'],['x = -1','Divide both sides by 4.']]},
+  {eq:'-3(x + 1) = 12', a:-5, hint:'Distribute the −3 to both terms: −3 · x and −3 · 1.',
+   steps:[['-3x - 3 = 12','Distribute: −3 · x = −3x and −3 · 1 = −3.'],['-3x - 3 [[+ 3]] = 12 [[+ 3]]','Add 3 to both sides.'],['-3x = 15','12 + 3 = 15.'],['x = -5','Divide both sides by −3.']]},
+  {eq:'2(x + 4) + 3x = 23', a:3, hint:'Distribute first, then combine the x-terms.',
+   steps:[['2x + 8 + 3x = 23','Distribute: 2(x + 4) = 2x + 8.'],['5x + 8 = 23','Combine like terms: 2x + 3x = 5x.'],['5x + 8 [[- 8]] = 23 [[- 8]]','Subtract 8 from both sides.'],['5x = 15','23 − 8 = 15.'],['x = 3','Divide both sides by 5.']]}
+ ]},
+ {id:'s6', title:'Variables on Both Sides', short:'x on both sides + checking', qs:[
+  {eq:'4x + 3 = x + 21', a:6, hint:'Subtract x from both sides to get the x-terms together.',
+   steps:[['4x + 3 [[- x]] = x + 21 [[- x]]','Subtract x (the smaller x-term) from both sides.'],['3x + 3 = 21','4x − x = 3x.'],['3x + 3 [[- 3]] = 21 [[- 3]]','Subtract 3 from both sides.'],['3x = 18','21 − 3 = 18.'],['x = 6','Divide both sides by 3.']]},
+  {eq:'6x - 2 = 2x + 10', a:3, hint:'Subtract 2x from both sides first.',
+   steps:[['6x - 2 [[- 2x]] = 2x + 10 [[- 2x]]','Subtract 2x from both sides.'],['4x - 2 = 10','6x − 2x = 4x.'],['4x - 2 [[+ 2]] = 10 [[+ 2]]','Add 2 to both sides.'],['4x = 12','10 + 2 = 12.'],['x = 3','Divide both sides by 4.']]},
+  {eq:'2x + 9 = 5x - 6', a:5, hint:'2x is the smaller x-term. Subtract 2x from both sides, so x ends up on the right.',
+   steps:[['2x + 9 [[- 2x]] = 5x - 6 [[- 2x]]','Subtract 2x from both sides.'],['9 = 3x - 6','5x − 2x = 3x.'],['9 [[+ 6]] = 3x - 6 [[+ 6]]','Add 6 to both sides.'],['15 = 3x','9 + 6 = 15.'],['x = 5','Divide both sides by 3.']]},
+  {eq:'8x + 1 = 3x - 14', a:-3, hint:'Subtract 3x from both sides, then subtract 1.',
+   steps:[['8x + 1 [[- 3x]] = 3x - 14 [[- 3x]]','Subtract 3x from both sides.'],['5x + 1 = -14','8x − 3x = 5x.'],['5x + 1 [[- 1]] = -14 [[- 1]]','Subtract 1 from both sides.'],['5x = -15','−14 − 1 = −15.'],['x = -3','Divide both sides by 5.']]},
+  {eq:'3(x + 2) = x + 14', a:4, hint:'Distribute the 3 first. Then get the x-terms on one side.',
+   steps:[['3x + 6 = x + 14','Distribute: 3(x + 2) = 3x + 6.'],['3x + 6 [[- x]] = x + 14 [[- x]]','Subtract x from both sides.'],['2x + 6 = 14','3x − x = 2x.'],['2x = 8','Subtract 6 from both sides.'],['x = 4','Divide both sides by 2.']]},
+  {prompt:'Checking practice: a classmate says `x = 2` solves `5x - 1 = 3x + 7`. Plug in `x = 2`. What does the left side, `5x - 1`, equal?', expr:'5*2 - 1', x:2, a:9,
+   hint:'Replace x with 2 in 5x − 1. Multiply first, then subtract.',
+   steps:[['5(2) - 1 = 9','Left side with x = 2: 10 − 1 = 9.'],['3(2) + 7 = 13','Right side with x = 2: 6 + 7 = 13. 9 and 13 don\'t match, so x = 2 is NOT a solution. (The real answer is x = 4: both sides equal 19.)']]}
+ ]},
+ {id:'final', title:'Final Mixed Review', short:'Final mixed review', qs:[
+  {eq:'x - 12 = -5', a:7, hint:'One step: undo the − 12.',
+   steps:[['x - 12 [[+ 12]] = -5 [[+ 12]]','Add 12 to both sides.'],['x = 7','−5 + 12 = 7.']]},
+  {eq:'-6x = 54', a:-9, hint:'Divide both sides by −6.',
+   steps:[['-6x [[÷ (-6)]] = 54 [[÷ (-6)]]','Divide both sides by −6.'],['x = -9','54 ÷ 6 = 9, and positive ÷ negative = negative.']]},
+  {eq:'x/2 = -8', a:-16, hint:'x is divided by 2, so multiply both sides by 2.',
+   steps:[['x/2 [[· 2]] = -8 [[· 2]]','Multiply both sides by 2.'],['x = -16','−8 · 2 = −16.']]},
+  {eq:'3x - 7 = 11', a:6, hint:'Two steps: add 7, then divide by 3.',
+   steps:[['3x - 7 [[+ 7]] = 11 [[+ 7]]','Add 7 to both sides.'],['3x = 18','11 + 7 = 18.'],['x = 6','Divide both sides by 3.']]},
+  {eq:'x/5 + 4 = 1', a:-15, hint:'Subtract 4 from both sides, then multiply by 5.',
+   steps:[['x/5 + 4 [[- 4]] = 1 [[- 4]]','Subtract 4 from both sides.'],['x/5 = -3','1 − 4 = −3.'],['x/5 [[· 5]] = -3 [[· 5]]','Multiply both sides by 5.'],['x = -15','−3 · 5 = −15.']]},
+  {eq:'2(2x + 1) = 12', a:2.5, hint:'Distribute the 2 to both terms. The answer is not a whole number.',
+   steps:[['4x + 2 = 12','Distribute: 2 · 2x = 4x and 2 · 1 = 2.'],['4x = 10','Subtract 2 from both sides.'],['x = 10/4 = 5/2 = 2.5','Divide both sides by 4. Type 2.5 or 5/2.']]},
+  {eq:'2x + 6x - 5 = 27', a:4, hint:'Combine like terms first: 2x + 6x.',
+   steps:[['8x - 5 = 27','Combine like terms: 2x + 6x = 8x.'],['8x = 32','Add 5 to both sides.'],['x = 4','Divide both sides by 8.']]},
+  {eq:'7x - 4 = 3x + 20', a:6, hint:'Subtract 3x from both sides to get x on one side.',
+   steps:[['4x - 4 = 20','Subtract 3x from both sides.'],['4x = 24','Add 4 to both sides.'],['x = 6','Divide both sides by 4.']]},
+  {eq:'2(x + 5) = 4x - 4', a:7, hint:'Distribute first. Then subtract 2x from both sides.',
+   steps:[['2x + 10 = 4x - 4','Distribute: 2(x + 5) = 2x + 10.'],['10 = 2x - 4','Subtract 2x from both sides.'],['14 = 2x','Add 4 to both sides.'],['x = 7','Divide both sides by 2.']]},
+  {prompt:'Word problem: a phone plan costs a $30 activation fee plus $20 per month. So far it has cost $150 in total. How many months has it been? (Let x = the number of months.)', eq:'20x + 30 = 150', hideEq:true, a:6,
+   hint:'Write the equation: $20 times x months, plus the $30 fee, equals $150.',
+   steps:[['20x + 30 = 150','Monthly cost times months, plus the fee, equals the total.'],['20x = 120','Subtract 30 from both sides.'],['x = 6','Divide both sides by 20. It has been 6 months.']]}
+ ]}
+];
+
+(function(){
+'use strict';
+var KEY = 'caleb-solving-equations-v1';
+var QUIZ = window.QUIZ;
+
+/* ---------- math rendering ---------- */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function R(src){
+  var s = esc(src);
+  s = s.replace(/(\([^()]*\)|[\dx.]+)\/(\([^()]*\)|[\dx.]+)/g, function(_,a,b){
+    return '<span class="frac"><span class="nu">'+a+'</span><span class="de">'+b+'</span></span>';
+  });
+  s = s.replace(/\[\[(.+?)\]\]/g, '<span class="hl">$1</span>');
+  s = s.replace(/x/g, '<i>x</i>');
+  s = s.replace(/-/g, '\u2212').replace(/\*/g, '\u00b7');
+  return s;
+}
+/* text with `math` segments */
+function RT(src){
+  return String(src).split('`').map(function(part,i){ return i%2 ? '<span class="m">'+R(part)+'</span>' : esc(part); }).join('');
+}
+window.__render = R;
+
+/* ---------- answer parsing ---------- */
+function parseAnswer(raw){
+  if(raw == null) return NaN;
+  var s = String(raw).trim().toLowerCase()
+    .replace(/[\u2212\u2013\u2014\u2010\u2011\uFE63\uFF0D]/g,'-')
+    .replace(/[\u2044\u2215\u00f7]/g,'/')
+    .replace(/,/g,'.');
+  s = s.replace(/^x\s*=\s*/, '').replace(/\s*=\s*x$/, '');
+  s = s.trim();
+  var m = s.match(/^([+-]?)\s*(\d+)\s+(\d+)\s*\/\s*(\d+)$/);           /* mixed number 3 1/2 */
+  if(m){ var d=+m[4]; if(!d) return NaN; var v=+m[2]+(+m[3])/d; return m[1]==='-'?-v:v; }
+  s = s.replace(/\s+/g,'');
+  var num = '[+-]?(?:\\d+\\.?\\d*|\\.\\d+)';
+  if(new RegExp('^'+num+'$').test(s)) return parseFloat(s);
+  m = s.match(new RegExp('^('+num+')/('+num+')$'));
+  if(m){ var b=parseFloat(m[2]); if(!b) return NaN; return parseFloat(m[1])/b; }
+  m = s.match(/^([+-]?)\((.+)\)$/);                                       /* -(3/2) */
+  if(m){ var inner=parseAnswer(m[2]); return m[1]==='-'?-inner:inner; }
+  return NaN;
+}
+window.__parseAnswer = parseAnswer;
+function same(a,b){ return Math.abs(a-b) < 1e-9; }
+
+/* ---------- state ---------- */
+var state;
+function load(){ try{ state = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ state = {}; } if(!state.q) state.q = {}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function qs(id){ return state.q[id] || (state.q[id] = {v:'', tries:0, ok:false, counted:false, shown:false, peek:false, hint:false}); }
+function done(st){ return st && (st.ok || st.peek); }
+
+/* ---------- build quizzes ---------- */
+function stepsHTML(steps){
+  return '<ol class="steps">'+steps.map(function(s){ return '<li><span class="m">'+R(s[0])+'</span><span class="why">'+RT(s[1])+'</span></li>'; }).join('')+'</ol>';
+}
+function build(){
+  QUIZ.forEach(function(sec){
+    var box = document.getElementById('quiz-'+sec.id);
+    if(!box) return;
+    var h = '<div class="quiz" data-sec="'+sec.id+'"><div class="quiz-head"><h3>'+(sec.id==='final'?'Final quiz':'Section quiz')+'</h3><span class="score" id="score-'+sec.id+'">0/'+sec.qs.length+'</span></div>';
+    sec.qs.forEach(function(q,i){
+      var id = sec.id+'-'+i, isEq = !!q.eq && !q.hideEq;
+      var text = q.prompt ? RT(q.prompt) : 'Solve for <span class="m">x</span>:';
+      if(isEq) text += '<span class="m big">'+R(q.eq)+'</span>';
+      else if(q.expr && q.prompt === 'Simplify:') text += '<span class="m big">'+R(q.expr)+'</span>';
+      h += '<div class="q" id="q-'+id+'" data-id="'+id+'">'+
+        '<div class="qnum">Question '+(i+1)+' of '+sec.qs.length+'</div>'+
+        '<div class="qtext">'+text+'</div>'+
+        '<div class="ansrow"><label class="sr" for="in-'+id+'">Your answer</label>'+
+          '<span class="pre">'+(q.eq ? 'x =' : '=')+'</span>'+
+          '<input id="in-'+id+'" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="your answer">'+
+          '<button type="button" class="pm" data-act="pm" aria-label="Add or remove minus sign">±</button></div>'+
+        '<div class="btns"><button type="button" class="primary" data-act="check">Check</button>'+
+          '<button type="button" data-act="hint">Hint</button>'+
+          '<button type="button" data-act="steps">Show steps</button></div>'+
+        '<div class="fb" role="status" aria-live="polite"></div>'+
+        '<div class="hintbox" hidden>💡 '+RT(q.hint)+'</div>'+
+        '<div class="sol" hidden><p class="solt">Worked solution</p>'+stepsHTML(q.steps)+'<p class="tips" style="margin-bottom:0">Answer: <b class="m">'+R(fmt(q.a))+'</b></p></div>'+
+      '</div>';
+    });
+    h += '<div class="quiz-foot"><p class="summary" id="sum-'+sec.id+'"></p><button type="button" data-act="retry" data-sec="'+sec.id+'">↺ Try again</button></div></div>';
+    box.innerHTML = h;
+  });
+}
+function fmt(a){ return (a<0?'-':'')+String(Math.abs(a)); }
+function findQ(id){ var p=id.split('-'); var sec=QUIZ.filter(function(s){return s.id===p[0];})[0]; return {sec:sec, q:sec.qs[+p[1]]}; }
+
+/* ---------- UI update ---------- */
+var PRAISE = ['Nice work!','Exactly right!','You got it!','Correct!','Nailed it!','That\'s it!'];
+function paintQ(id, msg, cls){
+  var el = document.getElementById('q-'+id); if(!el) return;
+  var st = qs(id), q = findQ(id).q;
+  var inp = el.querySelector('input');
+  if(inp.value !== st.v) inp.value = st.v;
+  el.classList.toggle('ok', !!st.ok);
+  inp.readOnly = !!st.ok;
+  el.querySelector('.hintbox').hidden = !st.hint;
+  el.querySelector('.sol').hidden = !st.shown;
+  el.querySelector('[data-act=steps]').textContent = st.shown ? 'Hide steps' : 'Show steps';
+  el.querySelector('[data-act=hint]').textContent = st.hint ? 'Hide hint' : 'Hint';
+  var fb = el.querySelector('.fb');
+  if(msg === undefined){
+    if(st.ok) { msg = st.counted ? '✓ Correct!' : '✓ Correct (after seeing the steps, so this one doesn\'t count toward your score).'; cls='good'; }
+    else if(st.peek) { msg = 'Look through the steps, then try typing the answer yourself.'; cls='info'; }
+    else if(st.tries) { msg = 'Not quite yet. Try again.'; cls='bad'; }
+    else { msg=''; cls=''; }
+  }
+  fb.textContent = msg; fb.className = 'fb '+(cls||'');
+}
+function updateProgress(){
+  var total=0, fin=0, list='';
+  QUIZ.forEach(function(sec,si){
+    var n=sec.qs.length, d=0, c=0, any=false;
+    sec.qs.forEach(function(q,i){ var st=state.q[sec.id+'-'+i]; if(done(st)) d++; if(st&&st.counted) c++; if(st&&(st.tries||st.peek||st.hint)) any=true; });
+    total+=n; fin+=d;
+    var allDone = d===n;
+    var sc = document.getElementById('score-'+sec.id); if(sc) sc.textContent = c+'/'+n;
+    var sum = document.getElementById('sum-'+sec.id);
+    if(sum){
+      if(allDone){
+        var r=c/n;
+        sum.textContent = 'Score: '+c+'/'+n+'. '+(r===1?'Perfect! You\'ve got this skill down. 💪':r>=0.67?'Solid work! Try again any time to aim for a perfect score.':'Good effort! Reread the examples above, then tap Try again. Practice is how this clicks.');
+      } else sum.textContent = d ? (d+' of '+n+' answered. Keep going!') : '';
+    }
+    list += '<li class="'+(allDone?'done':(any?'started':''))+'"><a href="#'+sec.id+'"><span class="dot">'+(allDone?'✓':(sec.id==='final'?'★':(si+1)))+'</span><span class="ct">'+esc(sec.short)+'</span><span class="sc">'+(d?c+'/'+n+' correct':n+' questions')+'</span></a></li>';
+  });
+  var pct = total ? Math.round(fin/total*100) : 0;
+  document.getElementById('pfill').style.width = pct+'%';
+  document.getElementById('topfill').style.width = pct+'%';
+  document.getElementById('ptext').textContent = fin+' of '+total+' questions done ('+pct+'%)';
+  document.getElementById('checklist').innerHTML = list;
+  var fbx = document.getElementById('finishbox'); if(fbx) fbx.hidden = fin<total;
+}
+
+/* ---------- actions ---------- */
+function check(id){
+  var el = document.getElementById('q-'+id), st = qs(id), q = findQ(id).q;
+  if(st.ok) return;
+  var raw = el.querySelector('input').value; st.v = raw;
+  if(!raw.trim()){ paintQ(id,'Type an answer first.','info'); return; }
+  var v = parseAnswer(raw);
+  if(isNaN(v)){ save(); paintQ(id,'Hmm, I can\'t read that. Type a number like 5, -3, 2.5, or 7/2.','info'); return; }
+  st.tries++;
+  if(same(v,q.a)){
+    st.ok = true; if(!st.peek) st.counted = true;
+    save(); paintQ(id, st.counted ? '✓ '+PRAISE[Math.floor(Math.random()*PRAISE.length)] : undefined, 'good');
+  } else {
+    var msg;
+    if(q.a!==0 && same(v,-q.a)) msg = 'Close! The number is right, but check the sign (+ or −).';
+    else if(st.tries===1) msg = 'Not quite. Try again, or tap Hint for a nudge.';
+    else msg = 'Still not it. That\'s OK. Here are the steps. Read them, then try again.';
+    if(st.tries===1 || (q.a!==0 && same(v,-q.a) && st.tries<3)) st.hint = true;
+    else { st.shown = true; st.peek = true; }
+    save(); paintQ(id, msg, 'bad');
+  }
+  updateProgress();
+}
+function retry(secId){
+  var sec = QUIZ.filter(function(s){return s.id===secId;})[0];
+  sec.qs.forEach(function(q,i){ delete state.q[secId+'-'+i]; });
+  save();
+  sec.qs.forEach(function(q,i){ paintQ(secId+'-'+i); });
+  updateProgress();
+  var first = document.getElementById('q-'+secId+'-0'); if(first && first.scrollIntoView) first.scrollIntoView({behavior:'smooth',block:'center'});
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-act]') : null; if(!b) return;
+  var act = b.getAttribute('data-act');
+  if(act==='retry'){ retry(b.getAttribute('data-sec')); return; }
+  var qel = b.closest('.q'); if(!qel) return; var id = qel.getAttribute('data-id'); var st = qs(id);
+  if(act==='check') check(id);
+  else if(act==='hint'){ st.hint = !st.hint; save(); paintQ(id); updateProgress(); }
+  else if(act==='steps'){ st.shown = !st.shown; if(st.shown) st.peek = true; save(); paintQ(id); updateProgress(); }
+  else if(act==='pm'){
+    var inp = qel.querySelector('input'); if(inp.readOnly) return;
+    var v = inp.value.replace(/^\s*x\s*=\s*/i,'');
+    v = /^\s*[-\u2212]/.test(v) ? v.replace(/^\s*[-\u2212]\s*/,'') : '-'+v.replace(/^\s*\+?/,'');
+    inp.value = v; st.v = v; save();
+    try{ inp.focus(); inp.setSelectionRange(v.length,v.length); }catch(_){}
+  }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key==='Enter' && e.target && e.target.matches && e.target.matches('.q input')){ e.preventDefault(); check(e.target.closest('.q').getAttribute('data-id')); }
+});
+document.addEventListener('input', function(e){
+  if(e.target && e.target.matches && e.target.matches('.q input')){ var st=qs(e.target.closest('.q').getAttribute('data-id')); st.v=e.target.value; save(); }
+});
+document.getElementById('resetall').addEventListener('click', function(){
+  if(window.confirm('Erase all your answers and start over?')){ state={q:{}}; save(); QUIZ.forEach(function(sec){ sec.qs.forEach(function(q,i){ paintQ(sec.id+'-'+i); }); }); updateProgress(); }
+});
+
+/* ---------- init ---------- */
+load();
+Array.prototype.forEach.call(document.querySelectorAll('.m'), function(el){ if(!el.closest('.quiz')) el.innerHTML = R(el.textContent); });
+build();
+QUIZ.forEach(function(sec){ sec.qs.forEach(function(q,i){ var id=sec.id+'-'+i; if(state.q[id]) paintQ(id); }); });
+updateProgress();
+})();
+</script>
+</body>
+</html>
