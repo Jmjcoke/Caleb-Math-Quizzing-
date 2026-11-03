@@ -96,6 +96,13 @@ footer{text-align:center;color:var(--muted);font-size:.9rem}
 [hidden]{display:none!important}
 @media (min-width:600px){.hero h1{font-size:2.1rem}.card{padding:22px 24px}}
 </style>
+<style>
+.sendbox{margin:18px 0;padding:16px;border-radius:14px;background:#eef6ff;border:2px solid #9cc7ff;text-align:center}
+.sendbtn{font-size:1.15rem;font-weight:700;padding:14px 22px;border-radius:999px;border:0;background:#2b7cff;color:#fff;cursor:pointer}
+.sendbtn:disabled{opacity:.6}
+.sendmsg{margin:10px 0 0;font-weight:600}
+.sendmsg.ok{color:#137a2f}.sendmsg.err{color:#b3261e}
+</style>
 </head>
 <body>
 <div id="topbar"><div id="topfill"></div></div>
@@ -401,6 +408,11 @@ footer{text-align:center;color:var(--muted);font-size:.9rem}
   <p>This quiz mixes every type of equation from the guide. For each one, first figure out what kind it is (one-step? two-step? parentheses? x on both sides?), then use the matching steps. If you get stuck, scroll back up to that section.</p>
   <div id="quiz-final"></div>
   <div id="finishbox" class="finish" hidden>🎉 You finished every question in the guide! Solving equations is a skill you now have. Bring it to class.</div>
+  <div id="sendbox" class="sendbox" hidden>
+    <p class="sendlead">Finished a section? Send your scores so Dad can see how you did and make practice just for you.</p>
+    <button type="button" id="sendscores" class="sendbtn">Send my scores to Dad 📬</button>
+    <p id="sendmsg" class="sendmsg" aria-live="polite"></p>
+  </div>
   <div class="nav"><a href="#top">↑ Back to progress</a></div>
 </section>
 
@@ -658,8 +670,36 @@ function updateProgress(){
   document.getElementById('ptext').textContent = fin+' of '+total+' questions done ('+pct+'%)';
   document.getElementById('checklist').innerHTML = list;
   var fbx = document.getElementById('finishbox'); if(fbx) fbx.hidden = fin<total;
+  var anySec = QUIZ.some(function(sec){ return sec.qs.every(function(q,i){ return done(state.q[sec.id+'-'+i]); }); });
+  var sbx = document.getElementById('sendbox'); if(sbx) sbx.hidden = !anySec;
 }
 
+/* ---------- send scores ---------- */
+var SCORES_URL = 'https://caleb-quiz-scores.jmjcoke.workers.dev/submit';
+function buildPayload(){
+  var sections=[], missed=[], tc=0, tt=0, td=0;
+  QUIZ.forEach(function(sec){
+    var c=0, d=0, n=sec.qs.length;
+    sec.qs.forEach(function(q,i){
+      var st=state.q[sec.id+'-'+i];
+      if(done(st)) d++;
+      if(st&&st.counted){ c++; return; }
+      if(!st) return;
+      missed.push({section:sec.id, sectionTitle:sec.title, index:i, prompt:q.prompt||'', eq:q.eq||q.expr||'', yourAnswer:st.v==null?'':String(st.v), correctAnswer:q.a, tries:st.tries||0, peeked:!!st.peek, usedHint:!!st.hint, gotItRight:!!st.ok});
+    });
+    tc+=c; tt+=n; td+=d;
+    sections.push({id:sec.id, title:sec.title, correct:c, answered:d, total:n, complete:d===n});
+  });
+  return {name:'Caleb', submittedAt:new Date().toISOString(), totals:{correct:tc, answered:td, total:tt}, sections:sections, missed:missed, state:state};
+}
+function sendScores(){
+  var btn=document.getElementById('sendscores'), msg=document.getElementById('sendmsg');
+  btn.disabled=true; msg.className='sendmsg'; msg.textContent='Sending… 🚀';
+  fetch(SCORES_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(buildPayload())})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(){ msg.className='sendmsg ok'; msg.textContent='Sent! Dad can see how you did. 🎉'; btn.textContent='Send again 📬'; btn.disabled=false; })
+    .catch(function(){ msg.className='sendmsg err'; msg.textContent='Oops, that didn\'t go through. Check your internet and tap the button to try again. 🙂'; btn.disabled=false; });
+}
 /* ---------- actions ---------- */
 function check(id){
   var el = document.getElementById('q-'+id), st = qs(id), q = findQ(id).q;
@@ -713,6 +753,7 @@ document.addEventListener('keydown', function(e){
 document.addEventListener('input', function(e){
   if(e.target && e.target.matches && e.target.matches('.q input')){ var st=qs(e.target.closest('.q').getAttribute('data-id')); st.v=e.target.value; save(); }
 });
+document.getElementById('sendscores').addEventListener('click', sendScores);
 document.getElementById('resetall').addEventListener('click', function(){
   if(window.confirm('Erase all your answers and start over?')){ state={q:{}}; save(); QUIZ.forEach(function(sec){ sec.qs.forEach(function(q,i){ paintQ(sec.id+'-'+i); }); }); updateProgress(); }
 });
