@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Exponents: Caleb's Guide</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1c2333;--muted:#5a6476;--accent:#c45c26;--accent2:#9a3412;--good:#178a4a;--good-bg:#e5f6ec;--bad:#c93a3a;--bad-bg:#fdeaea;--key:#fff6d8;--keyb:#e8b923;--line:#e1e6ef;--hl:#e3edff;--hlink:#1d4fc4;--warn-bg:#fff1e6;--warnb:#f08a3c;--ex:#f7f9fd}
+@media (prefers-color-scheme:dark){:root{--bg:#0f131a;--card:#191f2a;--ink:#e8ecf3;--muted:#a2acbe;--accent:#fb923c;--accent2:#fdba74;--good:#43d17f;--good-bg:#15301f;--bad:#ff7070;--bad-bg:#3a1c1c;--key:#2c2713;--keyb:#c99c1e;--line:#2b3342;--hl:#1c2b4b;--hlink:#a6c1ff;--warn-bg:#33231a;--warnb:#e07a2f;--ex:#141a24}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:40px}
+.wrap{max-width:720px;margin:0 auto;padding:0 14px}
+#topbar{position:sticky;top:0;z-index:10;height:6px;background:var(--line)}
+#topfill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+.hero{background:linear-gradient(135deg,#c45c26,#b45309);color:#fff;padding:28px 0 26px}
+.hero h1{margin:4px 0 10px;font-size:1.75rem;line-height:1.2}
+.hero p{margin:0;opacity:.95}
+.kicker{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;opacity:.85!important}
+.card{background:var(--card);border-radius:16px;padding:18px 16px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+h2{font-size:1.45rem;line-height:1.25;margin:4px 0 12px}
+h3{font-size:1.12rem;margin:22px 0 8px}
+p{margin:10px 0}
+a{color:var(--accent)}
+.secnum{display:inline-block;background:var(--accent);color:#fff;border-radius:10px;padding:0 10px;margin-right:6px;font-size:1rem;vertical-align:middle}
+.key{background:var(--key);border-left:5px solid var(--keyb);border-radius:10px;padding:12px 14px;margin:16px 0}
+.key b:first-child{display:block;margin-bottom:4px}
+.warn{background:var(--warn-bg);border-left:5px solid var(--warnb);border-radius:10px;padding:12px 14px;margin:18px 0}
+.warn ul{margin:6px 0 0;padding-left:20px}.warn li{margin:6px 0}
+.example{background:var(--ex);border:1px solid var(--line);border-radius:12px;padding:12px;margin:14px 0}
+.example .label{font-weight:700;color:var(--accent2);margin:0 0 4px}
+ol.steps{list-style:none;margin:8px 0 0;padding:0;counter-reset:st}
+ol.steps li{border-top:1px dashed var(--line);padding:8px 0 8px 34px;position:relative;counter-increment:st}
+ol.steps li:first-child{border-top:0}
+ol.steps li::before{content:counter(st);position:absolute;left:0;top:10px;width:24px;height:24px;border-radius:50%;background:var(--hl);color:var(--hlink);font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+ol.steps .m{display:block;font-size:1.2rem}
+ol.steps .why{display:block;color:var(--muted);font-size:.95rem}
+.m{font-family:"Cambria Math","STIX Two Math","Times New Roman",Georgia,serif;white-space:nowrap;font-size:1.08em}
+.m i{font-style:italic;font-weight:600}
+.m.big{display:block;font-size:1.55rem;margin:6px 0;white-space:normal}
+.m sup{font-size:.65em;font-style:normal;font-weight:700}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.1;margin:0 2px;font-size:.92em}
+.frac .nu{border-bottom:1.5px solid currentColor;padding:0 3px}
+.frac .de{padding:0 3px}
+.hl{background:var(--hl);color:var(--hlink);border-radius:5px;padding:0 3px;font-weight:600}
+table.inv{border-collapse:collapse;width:100%;margin:10px 0}
+table.inv th,table.inv td{border:1px solid var(--line);padding:8px;text-align:center}
+table.inv th{background:var(--ex)}
+.rules{padding-left:20px}.rules li{margin:8px 0}
+svg.scale{display:block;width:100%;max-width:340px;margin:8px auto;color:var(--ink)}
+/* progress */
+.ptext{font-weight:600;margin:8px 0}
+.pbar{height:14px;background:var(--line);border-radius:8px;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .4s}
+ul.checklist{list-style:none;padding:0;margin:12px 0 0}
+ul.checklist li{margin:0}
+ul.checklist a{display:flex;align-items:center;gap:10px;padding:11px 8px;min-height:48px;text-decoration:none;color:var(--ink);border-top:1px solid var(--line)}
+ul.checklist .dot{flex:0 0 26px;height:26px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700}
+ul.checklist .done .dot{background:var(--good);border-color:var(--good);color:#fff}
+ul.checklist .started .dot{border-color:var(--accent)}
+ul.checklist .ct{flex:1}
+ul.checklist .sc{color:var(--muted);font-size:.9rem;white-space:nowrap}
+.tips{font-size:.95rem;color:var(--muted)}
+/* quiz */
+.quiz{border-top:3px solid var(--accent);margin-top:22px;padding-top:6px}
+.quiz-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.quiz-head h3{margin:12px 0}
+.score{background:var(--hl);color:var(--hlink);font-weight:700;border-radius:20px;padding:4px 12px;white-space:nowrap}
+.q{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0}
+.q.ok{border-color:var(--good);background:var(--good-bg)}
+.qnum{font-size:.85rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.qtext{margin:4px 0 8px}
+.ansrow{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.ansrow .pre{font-family:"Cambria Math","Times New Roman",Georgia,serif;font-size:1.3rem;font-style:italic;white-space:nowrap}
+.ansrow input{flex:1;min-width:0;font-size:1.25rem;padding:10px 12px;min-height:50px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.ansrow input:focus{outline:none;border-color:var(--accent)}
+.q.ok input{border-color:var(--good)}
+button{font:inherit;cursor:pointer;border-radius:10px;min-height:48px;padding:8px 14px;border:2px solid var(--accent);background:transparent;color:var(--accent);font-weight:600;touch-action:manipulation}
+button:active{transform:translateY(1px)}
+button.primary{background:var(--accent);color:#fff}
+button.pm{min-width:54px;font-size:1.3rem;padding:6px}
+.btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btns button{flex:1 1 30%;padding:8px 6px;font-size:.95rem;white-space:nowrap}
+.fb{margin-top:10px;font-weight:600;min-height:0}
+.fb.good{color:var(--good)}.fb.bad{color:var(--bad)}.fb.info{color:var(--muted)}
+.hintbox{background:var(--key);border-radius:10px;padding:10px 12px;margin-top:10px}
+.sol{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px}
+.sol .solt{font-weight:700;margin:0}
+.quiz-foot{text-align:center;margin-top:8px}
+.summary{font-weight:600}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.nav a{display:inline-flex;align-items:center;min-height:48px;padding:0 6px;font-weight:600}
+.finish{background:var(--good-bg);border:2px solid var(--good);border-radius:12px;padding:14px;text-align:center;font-weight:600}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+footer{text-align:center;color:var(--muted);font-size:.9rem}
+[hidden]{display:none!important}
+@media (min-width:600px){.hero h1{font-size:2.1rem}.card{padding:22px 24px}}
+</style>
+<style>
+.sendbox{margin:18px 0;padding:16px;border-radius:14px;background:#eef6ff;border:2px solid #9cc7ff;text-align:center}
+.sendbtn{font-size:1.15rem;font-weight:700;padding:14px 22px;border-radius:999px;border:0;background:#2b7cff;color:#fff;cursor:pointer}
+.sendbtn:disabled{opacity:.6}
+.sendmsg{margin:10px 0 0;font-weight:600}
+.sendmsg.ok{color:#137a2f}.sendmsg.err{color:#b3261e}
+</style>
+</head>
+<body>
+<div id="topbar"><div id="topfill"></div></div>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Pre-Algebra · Exponents</p>
+    <h1>Exponents, Step by Step</h1>
+    <p>Hey Caleb! Your class is working on exponents right now. This guide walks through one skill at a time. Read a section, look at the examples, then try the quiz. Your progress saves on this phone, so you can stop and come back anytime.</p>
+  </div>
+</header>
+<main class="wrap">
+
+<nav class="card" id="top" aria-label="Progress">
+  <h2 style="margin-bottom:6px">Your progress</h2>
+  <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  <p class="ptext" id="ptext">0 questions done</p>
+  <ul class="checklist" id="checklist"></ul>
+  <p class="tips"><b>Typing answers:</b> type a number like <b>32</b>, <b>-9</b>, <b>1/8</b>, or <b>0.001</b>. No minus key? Tap the <b>±</b> button. Stuck? Tap <b>Hint</b>. Want to see how it's done? Tap <b>Show steps</b>.</p>
+</nav>
+
+<section class="card" id="s1">
+  <h2><span class="secnum">1</span>What Is an Exponent?</h2>
+  <p>An <b>exponent</b> tells you how many times to multiply a number by itself. The number being multiplied is the <b>base</b>. Together they make a <b>power</b>.</p>
+  <p class="m big">2^5 = 2 · 2 · 2 · 2 · 2 = 32</p>
+  <p>In <span class="m">2^5</span>, the base is <b>2</b> and the exponent is <b>5</b>. You write out five 2s and multiply them. That is <b>not</b> the same as <span class="m">2 · 5 = 10</span>.</p>
+  <div class="key"><b>Remember</b>A power is repeated multiplication, not multiplying the base by the exponent. <span class="m">3^4</span> means <span class="m">3 · 3 · 3 · 3 = 81</span>, not <span class="m">3 · 4 = 12</span>.</div>
+  <div class="example">
+    <p class="label">Example</p>
+    <p>What is <span class="m">5^3</span>?</p>
+    <ol class="steps">
+      <li><span class="m">5^3 = 5 · 5 · 5</span><span class="why">The exponent 3 means three factors of 5.</span></li>
+      <li><span class="m">5 · 5 = 25</span><span class="why">Multiply the first two.</span></li>
+      <li><span class="m">25 · 5 = 125</span><span class="why">Then multiply by the last 5.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Watch the parentheses</p>
+    <p><span class="m">(-3)^2</span> means <span class="m">(-3) · (-3) = 9</span>. The negative is inside, so it gets multiplied too.</p>
+    <p><span class="m">-3^2</span> means <span class="m">-(3 · 3) = -9</span>. The exponent only applies to the 3. The negative sits outside.</p>
+  </div>
+  <div class="warn">
+    <b>Common mix-up</b>
+    <ul>
+      <li><span class="m">10^4</span> is 1 followed by 4 zeros: <span class="m">10,000</span>, not 40.</li>
+      <li>Any nonzero number to the first power is itself: <span class="m">9^1 = 9</span>.</li>
+    </ul>
+  </div>
+  <div id="quiz-s1"></div>
+  <div class="nav"><a href="#s2">Next: multiplying powers →</a></div>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="secnum">2</span>Multiplying Powers With the Same Base</h2>
+  <p>When you multiply two powers that have the <b>same base</b>, keep that base and <b>add</b> the exponents.</p>
+  <div class="key"><b>Product rule</b><span class="m big">a^m · a^n = a^{m+n}</span>This only works when the bases match.</div>
+  <div class="example">
+    <p class="label">Why it works</p>
+    <p><span class="m">2^3 · 2^4</span> means three 2s times four 2s:</p>
+    <ol class="steps">
+      <li><span class="m">2^3 · 2^4 = (2 · 2 · 2) · (2 · 2 · 2 · 2)</span><span class="why">Write out the factors.</span></li>
+      <li><span class="m">= 2 · 2 · 2 · 2 · 2 · 2 · 2</span><span class="why">That’s 7 factors of 2.</span></li>
+      <li><span class="m">= 2^7</span><span class="why">Add the exponents: 3 + 4 = 7. The base stays 2.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Example</p>
+    <p>Simplify <span class="m">9^3 · 9^7</span>.</p>
+    <ol class="steps">
+      <li><span class="m">9^3 · 9^7 = 9^{3+7}</span><span class="why">Same base of 9, so add the exponents.</span></li>
+      <li><span class="m">= 9^{10}</span><span class="why">3 + 7 = 10. Do <b>not</b> multiply 3 × 7, and do <b>not</b> change the 9.</span></li>
+    </ol>
+  </div>
+  <p>A lonely number is a power too: <span class="m">7 = 7^1</span>, so <span class="m">7 · 7^4 = 7^1 · 7^4 = 7^5</span>.</p>
+  <div class="warn">
+    <b>Same base only</b>
+    <ul>
+      <li><span class="m">2^3 · 2^4 = 2^7</span>, not <span class="m">4^7</span> and not <span class="m">2^{12}</span>.</li>
+      <li>If the bases are different, you cannot add the exponents. That’s the next section’s big idea, and it shows up a lot in class.</li>
+    </ul>
+  </div>
+  <div id="quiz-s2"></div>
+  <div class="nav"><a href="#s1">← Back</a><a href="#s3">Next: different bases →</a></div>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="secnum">3</span>Different Bases Stay Different</h2>
+  <p>This is one of the most important ideas in your class right now. Look at something like:</p>
+  <p class="m big">9^3 · 10^7</p>
+  <p>The bases are <b>9</b> and <b>10</b>. Those are different numbers, so you <b>cannot</b> smash this into one power by adding or multiplying the exponents.</p>
+  <div class="key"><b>The rule</b>You may combine exponents only when the bases are the same. Different bases stay as separate powers.</div>
+  <div class="example">
+    <p class="label">What you should NOT do</p>
+    <ol class="steps">
+      <li><span class="m">9^3 · 10^7</span><span class="why">Do not add: this is not <span class="m">9^{10}</span> or <span class="m">10^{10}</span>.</span></li>
+      <li><span class="m">9^3 · 10^7</span><span class="why">Do not multiply the exponents: this is not <span class="m">9^{21}</span> or <span class="m">10^{21}</span>. Multiplying exponents is for a power of a power, like <span class="m">(a^7)^2</span>.</span></li>
+      <li><span class="m">9^3 · 10^7</span><span class="why">Do not multiply the bases and keep one exponent: this is not <span class="m">90^{10}</span> or <span class="m">90^3</span>.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">What you CAN do</p>
+    <p>Leave it as <span class="m">9^3 · 10^7</span>, or evaluate each power if you need a regular number:</p>
+    <ol class="steps">
+      <li><span class="m">9^3 = 9 · 9 · 9 = 729</span><span class="why">The 9 has its own exponent.</span></li>
+      <li><span class="m">10^7 = 10,000,000</span><span class="why">The 10 has its own exponent. 1 followed by 7 zeros.</span></li>
+      <li><span class="m">9^3 · 10^7 = 729 · 10,000,000 = 7,290,000,000</span><span class="why">Multiply the two results if you need the value. The expression <span class="m">9^3 · 10^7</span> is already simplified as a product of powers.</span></li>
+    </ol>
+  </div>
+  <p>Sometimes different-looking bases are secretly the same. Then you <b>rewrite</b> first:</p>
+  <div class="example">
+    <p class="label">Rewrite so the bases match</p>
+    <p>Simplify <span class="m">9^3 · 3^2</span>.</p>
+    <ol class="steps">
+      <li><span class="m">9 = 3^2</span><span class="why">9 is a power of 3, so rewrite the first base.</span></li>
+      <li><span class="m">9^3 = (3^2)^3 = 3^{2 · 3} = 3^6</span><span class="why">Power of a power: multiply the exponents. (More on that next.)</span></li>
+      <li><span class="m">3^6 · 3^2 = 3^8</span><span class="why">Now the bases match, so add: 6 + 2 = 8.</span></li>
+    </ol>
+  </div>
+  <div class="warn">
+    <b>Quick check before you combine</b>
+    <ul>
+      <li>Are the bases the same number? Yes → you can add (when multiplying) or subtract (when dividing).</li>
+      <li>Are the bases different, like 9 and 10? Leave them separate.</li>
+      <li>Can you rewrite one base to match the other (like 9 = 3^2 or 8 = 2^3)? Then rewrite first, then combine.</li>
+    </ul>
+  </div>
+  <div id="quiz-s3"></div>
+  <div class="nav"><a href="#s2">← Back</a><a href="#s4">Next: power of a power →</a></div>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="secnum">4</span>Power of a Power</h2>
+  <p>When a power is raised to another power, <b>multiply</b> the exponents and keep the same base.</p>
+  <div class="key"><b>Power of a power</b><span class="m big">(a^m)^n = a^{m · n}</span>Example: if you see something like a 7th power raised to the 2nd, the new exponent is <span class="m">7 · 2 = 14</span>.</div>
+  <div class="example">
+    <p class="label">Why it works</p>
+    <p>Simplify <span class="m">(2^7)^2</span>.</p>
+    <ol class="steps">
+      <li><span class="m">(2^7)^2 = 2^7 · 2^7</span><span class="why">A power of 2 means multiply the inside by itself.</span></li>
+      <li><span class="m">= 2^{7+7} = 2^{14}</span><span class="why">Same base, so add… which is the same as multiplying 7 × 2.</span></li>
+      <li><span class="m">(2^7)^2 = 2^{14}</span><span class="why">Shortcut: multiply the exponents. The base stays 2.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Example</p>
+    <p>Simplify <span class="m">(5^3)^4</span>.</p>
+    <ol class="steps">
+      <li><span class="m">(5^3)^4 = 5^{3 · 4}</span><span class="why">Power of a power: multiply.</span></li>
+      <li><span class="m">= 5^{12}</span><span class="why">Not 5^7 (that would be adding) and not 5^{81}.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Power of a product</p>
+    <p>An exponent outside parentheses hits <b>every factor</b> inside:</p>
+    <p class="m big">(ab)^n = a^n · b^n</p>
+    <p>So <span class="m">(2 · 5)^3 = 2^3 · 5^3</span>, and <span class="m">(9 · 10)^3 = 9^3 · 10^3</span>. Notice that last one is <span class="m">9^3 · 10^3</span>, not <span class="m">9^3 · 10^7</span> — each factor gets the <b>same</b> outside exponent.</p>
+  </div>
+  <div class="warn">
+    <b>Don’t mix up the two multiply situations</b>
+    <ul>
+      <li><span class="m">a^7 · a^2 = a^9</span> — multiplying powers with the same base: <b>add</b> 7 + 2.</li>
+      <li><span class="m">(a^7)^2 = a^{14}</span> — a power raised to a power: <b>multiply</b> 7 × 2.</li>
+      <li>Look for the parentheses. Parentheses around a power, with another exponent outside, means multiply.</li>
+    </ul>
+  </div>
+  <div id="quiz-s4"></div>
+  <div class="nav"><a href="#s3">← Back</a><a href="#s5">Next: dividing powers →</a></div>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="secnum">5</span>Dividing Powers With the Same Base</h2>
+  <p>When you divide two powers that have the <b>same base</b>, keep that base and <b>subtract</b> the exponents.</p>
+  <div class="key"><b>Quotient rule</b><span class="m big">a^m / a^n = a^{m-n}</span>Again: same base only.</div>
+  <div class="example">
+    <p class="label">Example</p>
+    <p>Simplify <span class="m">5^7 / 5^3</span>.</p>
+    <ol class="steps">
+      <li><span class="m">5^7 / 5^3 = 5^{7-3}</span><span class="why">Same base of 5, so subtract the exponents.</span></li>
+      <li><span class="m">= 5^4</span><span class="why">7 − 3 = 4.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Why it works</p>
+    <p><span class="m">2^5 / 2^2 = (2 · 2 · 2 · 2 · 2) / (2 · 2)</span>. Two of the 2s cancel, leaving three 2s: <span class="m">2^3</span>.</p>
+  </div>
+  <p>If the exponents are equal, everything cancels and you get 1: <span class="m">3^5 / 3^5 = 3^0 = 1</span>. (Zero exponents are next.)</p>
+  <div class="warn">
+    <b>Different bases still stay apart</b>
+    <ul>
+      <li><span class="m">9^7 / 10^3</span> cannot become <span class="m">9^4</span> or <span class="m">10^4</span>. The bases don’t match.</li>
+      <li>You can write it as a fraction, <span class="m">9^7 / 10^3</span>, or evaluate each power separately.</li>
+    </ul>
+  </div>
+  <div id="quiz-s5"></div>
+  <div class="nav"><a href="#s4">← Back</a><a href="#s6">Next: zero and negative exponents →</a></div>
+</section>
+
+<section class="card" id="s6">
+  <h2><span class="secnum">6</span>Zero and Negative Exponents</h2>
+  <p>Any nonzero number to the <b>zero</b> power is 1.</p>
+  <p class="m big">a^0 = 1   (as long as a is not 0)</p>
+  <p>That matches the divide rule: <span class="m">5^3 / 5^3 = 5^{3-3} = 5^0</span>, and anything divided by itself is 1.</p>
+  <p>A <b>negative</b> exponent means “take the reciprocal, then make the exponent positive.” It does <b>not</b> make the answer negative.</p>
+  <div class="key"><b>Negative exponent</b><span class="m big">a^{-n} = 1 / a^n</span>So <span class="m">2^{-3} = 1 / 2^3 = 1/8</span>, not −8 and not −2^3.</div>
+  <div class="example">
+    <p class="label">Example</p>
+    <p>Simplify <span class="m">10^{-3}</span>.</p>
+    <ol class="steps">
+      <li><span class="m">10^{-3} = 1 / 10^3</span><span class="why">Negative exponent → flip to the denominator.</span></li>
+      <li><span class="m">10^3 = 1000</span><span class="why">1 followed by 3 zeros.</span></li>
+      <li><span class="m">= 1/1000 = 0.001</span><span class="why">You can type 1/1000 or 0.001.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Example</p>
+    <p>Simplify <span class="m">5^{-2}</span>.</p>
+    <ol class="steps">
+      <li><span class="m">5^{-2} = 1 / 5^2</span><span class="why">Flip, then the exponent becomes positive 2.</span></li>
+      <li><span class="m">5^2 = 25</span><span class="why">5 · 5 = 25.</span></li>
+      <li><span class="m">= 1/25</span><span class="why">That’s the simplified value.</span></li>
+    </ol>
+  </div>
+  <div class="warn">
+    <b>The minus is not a “make it negative” sign</b>
+    <ul>
+      <li><span class="m">3^{-2} = 1/9</span>, which is positive.</li>
+      <li><span class="m">(-4)^0 = 1</span>. The base is −4, and any nonzero number to the 0 power is 1.</li>
+    </ul>
+  </div>
+  <div id="quiz-s6"></div>
+  <div class="nav"><a href="#s5">← Back</a><a href="#s7">Next: scientific notation →</a></div>
+</section>
+
+<section class="card" id="s7">
+  <h2><span class="secnum">7</span>Scientific Notation</h2>
+  <p>Scientific notation writes a number as a decimal times a power of 10:</p>
+  <p class="m big">a · 10^n</p>
+  <p>The first number <span class="m">a</span> must be at least 1 and less than 10 (like 3.4 or 7, but not 34 or 0.34). The exponent on 10 tells you how the decimal point moves.</p>
+  <div class="key"><b>Moving the decimal</b>A <b>positive</b> exponent makes a large number: move the decimal <b>right</b>. A <b>negative</b> exponent makes a small number: move the decimal <b>left</b>.</div>
+  <div class="example">
+    <p class="label">Large number</p>
+    <p><span class="m">3.4 · 10^4</span></p>
+    <ol class="steps">
+      <li><span class="m">3.4</span><span class="why">Start here. The exponent is +4, so move the decimal 4 places right.</span></li>
+      <li><span class="m">34000</span><span class="why">3.4 → 34 → 340 → 3400 → 34,000. Fill empty spots with zeros.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Small number</p>
+    <p><span class="m">4.2 · 10^{-2}</span></p>
+    <ol class="steps">
+      <li><span class="m">4.2</span><span class="why">The exponent is −2, so move the decimal 2 places left.</span></li>
+      <li><span class="m">0.042</span><span class="why">4.2 → 0.42 → 0.042.</span></li>
+    </ol>
+  </div>
+  <div class="example">
+    <p class="label">Writing a number in scientific notation</p>
+    <p>Write 56,000 as <span class="m">a · 10^n</span>.</p>
+    <ol class="steps">
+      <li><span class="m">5.6</span><span class="why">Move the decimal so one digit sits to the left of it: 5.6.</span></li>
+      <li><span class="m">56000 → 5.6</span><span class="why">You moved the decimal 4 places left, so the power is <span class="m">10^4</span>.</span></li>
+      <li><span class="m">56000 = 5.6 · 10^4</span><span class="why">Check: 5.6 times 10,000 is 56,000.</span></li>
+    </ol>
+  </div>
+  <div id="quiz-s7"></div>
+  <div class="nav"><a href="#s6">← Back</a><a href="#final">Next: mixed review →</a></div>
+</section>
+
+<section class="card" id="final">
+  <h2><span class="secnum">★</span>Final Mixed Review</h2>
+  <p>This quiz mixes everything: evaluating powers, same-base vs different-base, adding vs multiplying exponents, zero and negative exponents, and scientific notation. If you get stuck, scroll back to that section.</p>
+  <div id="quiz-final"></div>
+  <div id="finishbox" class="finish" hidden>🎉 You finished every question in the guide! Exponents are a skill you now have. Bring it to class.</div>
+  <div id="sendbox" class="sendbox" hidden>
+    <p class="sendlead">Finished a section? Send your scores so Dad can see how you did and make practice just for you.</p>
+    <button type="button" id="sendscores" class="sendbtn">Send my scores to Dad 📬</button>
+    <p id="sendmsg" class="sendmsg" aria-live="polite"></p>
+  </div>
+  <div class="nav"><a href="#top">↑ Back to progress</a></div>
+</section>
+
+<footer>
+  <p>Progress is saved on this device only.</p>
+  <p><button type="button" id="resetall">Reset all progress</button></p>
+</footer>
+</main>
+<script>
+/* ---------- QUIZ DATA ----------
+   eq: equation in x (solved for checking); expr: arithmetic expression; a: answer.
+   steps: [math, reason]. [[...]] marks what is done to both sides. */
+window.QUIZ = [
+ {id:'s1', title:'What Is an Exponent?', short:'What an exponent is', qs:[
+  {prompt:'Evaluate:', expr:'2^5', a:32, hint:'Write five 2s and multiply: 2 · 2 · 2 · 2 · 2.',
+   steps:[['2^5 = 2 · 2 · 2 · 2 · 2','The exponent 5 means five factors of 2.'],['2 · 2 · 2 · 2 · 2 = 32','Not 2 · 5 = 10.']]},
+  {prompt:'Evaluate:', expr:'3^4', a:81, hint:'3 · 3 · 3 · 3. That is not 3 · 4.',
+   steps:[['3^4 = 3 · 3 · 3 · 3','Four factors of 3.'],['9 · 9 = 81','3 · 3 = 9, then 9 · 9 = 81.']]},
+  {prompt:'Evaluate:', expr:'5^3', a:125, hint:'5 · 5 · 5.',
+   steps:[['5^3 = 5 · 5 · 5','Three factors of 5.'],['25 · 5 = 125','5 · 5 = 25, then 25 · 5 = 125.']]},
+  {prompt:'Evaluate:', expr:'10^4', a:10000, hint:'10 to a power is 1 followed by that many zeros.',
+   steps:[['10^4 = 10 · 10 · 10 · 10','Four factors of 10.'],['= 10000','1 followed by 4 zeros.']]},
+  {prompt:'Evaluate:', expr:'(-3)^2', a:9, hint:'The negative is inside the parentheses, so it gets squared too.',
+   steps:[['-3 · -3 = 9','(-3)^2 means (−3) times (−3).'],['= 9','A negative times a negative is positive.']]},
+  {prompt:'Evaluate:', expr:'-3^2', a:-9, hint:'Without parentheses, the exponent applies only to the 3. Then the negative sits out front.',
+   steps:[['-3^2 = -(3 · 3)','The exponent does not include the minus sign.'],['= -9','3 · 3 = 9, then apply the negative.']]}
+ ]},
+ {id:'s2', title:'Multiplying Powers With the Same Base', short:'Same base: multiply', qs:[
+  {prompt:'Simplify `2^3 · 2^4` as a single power of 2. What is the new exponent?', expr:'2^3 · 2^4 = 2^?', a:7, hint:'Same base, so add the exponents.',
+   steps:[['2^3 · 2^4 = 2^{3+4}','Product rule: add the exponents and keep the base.'],['= 2^7','3 + 4 = 7. Not 2^{12} (don’t multiply) and not 4^7 (don’t change the base).']]},
+  {prompt:'Simplify `9^3 · 9^7` as a single power of 9. What is the new exponent?', expr:'9^3 · 9^7 = 9^?', a:10, hint:'The bases are both 9, so add 3 + 7.',
+   steps:[['9^3 · 9^7 = 9^{3+7}','Same base: add.'],['= 9^{10}','3 + 7 = 10. Do not multiply 3 × 7.']]},
+  {prompt:'Simplify `5^2 · 5^6` as a single power of 5. What is the new exponent?', expr:'5^2 · 5^6 = 5^?', a:8, hint:'Add the exponents: 2 + 6.',
+   steps:[['5^2 · 5^6 = 5^{2+6}','Same base of 5.'],['= 5^8','2 + 6 = 8.']]},
+  {prompt:'Simplify `7 · 7^4` as a single power of 7. What is the new exponent?', expr:'7 · 7^4 = 7^?', a:5, hint:'A plain 7 is the same as `7^1`.',
+   steps:[['7 = 7^1','Any number is itself to the first power.'],['7^1 · 7^4 = 7^{1+4}','Now the bases match, so add.'],['= 7^5','1 + 4 = 5.']]},
+  {prompt:'Evaluate:', expr:'2^3 · 2^2', a:32, hint:'You can add first: `2^{3+2} = 2^5`. Then evaluate.',
+   steps:[['2^3 · 2^2 = 2^5','Same base: 3 + 2 = 5.'],['2^5 = 32','2 · 2 · 2 · 2 · 2 = 32. (Or 8 · 4 = 32.)']]},
+  {prompt:'Simplify `10^2 · 10^3` as a single power of 10. What is the new exponent?', expr:'10^2 · 10^3 = 10^?', a:5, hint:'Add 2 + 3. The base stays 10.',
+   steps:[['10^2 · 10^3 = 10^{2+3}','Same base of 10.'],['= 10^5','2 + 3 = 5, which is 100,000.']]}
+ ]},
+ {id:'s3', title:'Different Bases Stay Different', short:'Different bases', qs:[
+  {prompt:'In `9^3 · 10^7`, can you add or multiply the exponents to make one power? Type 1 for yes or 0 for no.', expr:'9^3 · 10^7', a:0, hint:'The bases are 9 and 10. Those are different numbers.',
+   steps:[['Bases: 9 and 10','They do not match.'],['You cannot write 9^{10}, 10^{10}, 9^{21}, or 90^{10}','Adding or multiplying the exponents only works when the bases are the same.'],['Leave it as 9^3 · 10^7','Each power keeps its own base and its own exponent. Type 0 for no.']]},
+  {prompt:'Someone simplifies `9^3 · 10^7` and says the new exponent is 10 (they added 3 + 7). What should that exponent actually stay as on the 9? Type the exponent that belongs with the 9.', expr:'9^? · 10^7', a:3, hint:'The 9 keeps its own exponent because the other base is 10, not 9.',
+   steps:[['9^3 · 10^7','Different bases, so nothing gets combined.'],['The 9 still has exponent 3','The 10 still has exponent 7. Adding 3 + 7 would only be correct for 9^3 · 9^7 or 10^3 · 10^7.']]},
+  {prompt:'Evaluate `9^3`. (This is the first factor in `9^3 · 10^7`.)', expr:'9^3', a:729, hint:'9 · 9 · 9.',
+   steps:[['9^3 = 9 · 9 · 9','Three factors of 9.'],['81 · 9 = 729','9 · 9 = 81, then 81 · 9 = 729.']]},
+  {prompt:'How many zeros are in `10^7` written as an ordinary number (like 10,000,000)?', expr:'10^7', a:7, hint:'`10^n` is 1 followed by n zeros.',
+   steps:[['10^7 = 10,000,000','1 followed by 7 zeros.'],['So there are 7 zeros','That exponent stays with the 10. It does not mix with the exponent on the 9.']]},
+  {prompt:'Rewrite `9^3` as a power of 3. What is the new exponent? (Hint: `9 = 3^2`, then use power of a power.)', expr:'9^3 = (3^2)^3 = 3^?', a:6, hint:'Power of a power: multiply 2 × 3.',
+   steps:[['9 = 3^2','9 is 3 times 3.'],['9^3 = (3^2)^3','Replace 9 with 3^2.'],['= 3^{2 · 3} = 3^6','Multiply the exponents: 2 × 3 = 6.']]},
+  {prompt:'Now simplify `9^3 · 3^2` as a single power of 3. What is the exponent? (Use the last idea: `9^3 = 3^6`.)', expr:'9^3 · 3^2 = 3^?', a:8, hint:'After rewriting, you have `3^6 · 3^2`. Same base, so add.',
+   steps:[['9^3 = 3^6','From the rewrite: (3^2)^3 = 3^6.'],['3^6 · 3^2 = 3^{6+2}','Now the bases match.'],['= 3^8','6 + 2 = 8. You could combine here because both sides became powers of 3. You cannot do that with 9^3 · 10^7.']]}
+ ]},
+ {id:'s4', title:'Power of a Power', short:'Power of a power', qs:[
+  {prompt:'Simplify `(2^7)^2` as a single power of 2. What is the new exponent?', expr:'(2^7)^2 = 2^?', a:14, hint:'A power raised to a power: multiply the exponents. 7 × 2 = 14.',
+   steps:[['(2^7)^2 = 2^{7 · 2}','Parentheses around a power, another exponent outside: multiply.'],['= 2^{14}','7 × 2 = 14. Not 2^9 (that would be adding, which is for 2^7 · 2^2).']]},
+  {prompt:'Simplify `(5^3)^4` as a single power of 5. What is the new exponent?', expr:'(5^3)^4 = 5^?', a:12, hint:'Multiply 3 × 4.',
+   steps:[['(5^3)^4 = 5^{3 · 4}','Power of a power.'],['= 5^{12}','3 × 4 = 12, not 3 + 4 = 7.']]},
+  {prompt:'Simplify `(10^2)^3` as a single power of 10. What is the new exponent?', expr:'(10^2)^3 = 10^?', a:6, hint:'Multiply 2 × 3.',
+   steps:[['(10^2)^3 = 10^{2 · 3}','Multiply the exponents.'],['= 10^6','2 × 3 = 6, which is 1,000,000.']]},
+  {prompt:'Simplify `(3^4)^2` as a single power of 3. What is the new exponent?', expr:'(3^4)^2 = 3^?', a:8, hint:'4 × 2.',
+   steps:[['(3^4)^2 = 3^{4 · 2}','Power of a power.'],['= 3^8','4 × 2 = 8.']]},
+  {prompt:'Which rule is this: `a^7 · a^2`? Type 1 if you should ADD the exponents (7 + 2), or 2 if you should MULTIPLY them (7 × 2).', expr:'a^7 · a^2', a:1, hint:'No extra parentheses around a power. This is multiplying two powers with the same base.',
+   steps:[['a^7 · a^2','This is the product rule.'],['Add: 7 + 2 = 9, so a^9','Multiply (7 × 2 = 14) is for (a^7)^2, when one power is raised to another power.']]},
+  {prompt:'Evaluate `(2 · 5)^2`.', expr:'(2 · 5)^2', a:100, hint:'You can multiply inside first (2 · 5 = 10, then square), or give each factor the exponent: `2^2 · 5^2`.',
+   steps:[[' (2 · 5)^2 = 10^2','Multiply inside the parentheses first.'],['= 100','Or: 2^2 · 5^2 = 4 · 25 = 100.']]}
+ ]},
+ {id:'s5', title:'Dividing Powers With the Same Base', short:'Same base: divide', qs:[
+  {prompt:'Simplify `5^7 / 5^3` as a single power of 5. What is the new exponent?', expr:'5^7 / 5^3 = 5^?', a:4, hint:'Same base: subtract the exponents. 7 − 3.',
+   steps:[['5^7 / 5^3 = 5^{7-3}','Quotient rule: subtract.'],['= 5^4','7 − 3 = 4.']]},
+  {prompt:'Evaluate:', expr:'2^8 / 2^5', a:8, hint:'Subtract first: `2^{8-5} = 2^3`. Then evaluate.',
+   steps:[['2^8 / 2^5 = 2^3','8 − 5 = 3.'],['2^3 = 8','2 · 2 · 2 = 8.']]},
+  {prompt:'Evaluate:', expr:'3^5 / 3^5', a:1, hint:'The exponents are the same, so everything cancels (or you get `3^0`).',
+   steps:[['3^5 / 3^5 = 3^{5-5} = 3^0','Subtract: 5 − 5 = 0.'],['= 1','A nonzero number over itself is 1. And anything (except 0) to the 0 power is 1.']]},
+  {prompt:'Evaluate:', expr:'10^6 / 10^2', a:10000, hint:'`10^{6-2} = 10^4`.',
+   steps:[['10^6 / 10^2 = 10^4','6 − 2 = 4.'],['10^4 = 10000','1 followed by 4 zeros.']]},
+  {prompt:'Simplify `7^4 / 7` as a single power of 7. What is the new exponent?', expr:'7^4 / 7 = 7^?', a:3, hint:'A plain 7 is `7^1`, so subtract 4 − 1.',
+   steps:[['7 = 7^1','Rewrite the denominator.'],['7^4 / 7^1 = 7^{4-1}','Same base: subtract.'],['= 7^3','4 − 1 = 3.']]},
+  {prompt:'In `9^7 / 10^3`, can you subtract the exponents to make one power? Type 1 for yes or 0 for no.', expr:'9^7 / 10^3', a:0, hint:'Different bases again: 9 and 10.',
+   steps:[['Bases: 9 and 10','They do not match, so you cannot write 9^4 or 10^4.'],['Leave it as 9^7 / 10^3','Type 0 for no.']]}
+ ]},
+ {id:'s6', title:'Zero and Negative Exponents', short:'Zero & negative', qs:[
+  {prompt:'Evaluate:', expr:'8^0', a:1, hint:'Any nonzero number to the 0 power is 1.',
+   steps:[['8^0 = 1','This is the zero-exponent rule.'],['Check: 8^3 / 8^3 = 8^0 = 1','A number divided by itself is 1.']]},
+  {prompt:'Evaluate:', expr:'(-4)^0', a:1, hint:'The base is −4, which is not zero. Zero exponent still gives 1.',
+   steps:[['-4^0 would be different','Here the −4 is inside parentheses.'],['(-4)^0 = 1','Any nonzero base to the 0 power is 1.']]},
+  {prompt:'Evaluate. You can type a fraction like 1/8.', expr:'2^{-3}', a:0.125, show:'1/8', hint:'A negative exponent means 1 over the positive power: `1 / 2^3`.',
+   steps:[['2^{-3} = 1 / 2^3','Flip, then the exponent becomes positive 3.'],['2^3 = 8','2 · 2 · 2 = 8.'],['= 1/8','Not −8. The negative exponent does not make the answer negative.']]},
+  {prompt:'Evaluate. You can type a fraction like 1/25.', expr:'5^{-2}', a:1/25, show:'1/25', hint:'`5^{-2} = 1 / 5^2`.',
+   steps:[['5^{-2} = 1 / 5^2','Negative exponent → reciprocal.'],['5^2 = 25','5 · 5 = 25.'],['= 1/25','You can type 1/25 or 0.04.']]},
+  {prompt:'Evaluate:', expr:'10^{-3}', a:1/1000, show:'0.001', hint:'`10^{-3} = 1 / 10^3 = 1/1000`.',
+   steps:[['10^{-3} = 1 / 10^3','Flip to the denominator.'],['10^3 = 1000','1 followed by 3 zeros.'],['= 0.001','1/1000. You can type 1/1000 or 0.001.']]},
+  {prompt:'Evaluate. You can type a fraction like 1/3.', expr:'3^{-1}', a:1/3, show:'1/3', hint:'Anything to the −1 power is just its reciprocal: `1/3`.',
+   steps:[['3^{-1} = 1 / 3^1','Negative 1 means “one over”.'],['= 1/3','Type 1/3.']]}
+ ]},
+ {id:'s7', title:'Scientific Notation', short:'Scientific notation', qs:[
+  {prompt:'Write as an ordinary number:', expr:'3.4 · 10^4', a:34000, hint:'Positive exponent 4: move the decimal 4 places to the right.',
+   steps:[['3.4 · 10^4','Move the decimal in 3.4 four places right.'],['= 34000','3.4 → 34 → 340 → 3400 → 34,000.']]},
+  {prompt:'Write as an ordinary number:', expr:'2.5 · 10^3', a:2500, hint:'Move the decimal 3 places right.',
+   steps:[['2.5 · 10^3','Exponent +3 means three places right.'],['= 2500','2.5 → 25 → 250 → 2,500.']]},
+  {prompt:'Write as an ordinary number:', expr:'6 · 10^5', a:600000, hint:'6 followed by 5 zeros.',
+   steps:[['6 · 10^5 = 600000','Move the decimal 5 places right, filling zeros.']]},
+  {prompt:'Write as an ordinary number:', expr:'4.2 · 10^{-2}', a:0.042, hint:'Negative exponent: move the decimal 2 places left.',
+   steps:[['4.2 · 10^{-2}','Exponent −2 means two places left.'],['= 0.042','4.2 → 0.42 → 0.042.']]},
+  {prompt:'Write 56,000 in scientific notation as `5.6 · 10^n`. What is n?', expr:'56000 = 5.6 · 10^?', a:4, hint:'How many places do you move the decimal to get from 56,000 to 5.6?',
+   steps:[['56000 → 5.6','One nonzero digit to the left of the decimal.'],['You moved 4 places left','So the power is 10^4.'],['56000 = 5.6 · 10^4','Check: 5.6 × 10,000 = 56,000.']]},
+  {prompt:'Write 0.007 in scientific notation as `7 · 10^n`. What is n? (Include the negative sign.)', expr:'0.007 = 7 · 10^?', a:-3, hint:'You move the decimal right to get from 0.007 to 7. Moving right means a negative exponent.',
+   steps:[['0.007 → 7','Move the decimal 3 places right.'],['n = -3','Right for a small number means 10^{-3}.'],['0.007 = 7 · 10^{-3}','Check: 7 × 0.001 = 0.007.']]}
+ ]},
+ {id:'final', title:'Final Mixed Review', short:'Final mixed review', qs:[
+  {prompt:'Evaluate:', expr:'2^6', a:64, hint:'Six 2s multiplied, or 2 · 2 · 2 · 2 · 2 · 2.',
+   steps:[['2^6 = 64','2^5 = 32, then one more 2 makes 64.']]},
+  {prompt:'Simplify `4^5 · 4^3` as a single power of 4. What is the new exponent?', expr:'4^5 · 4^3 = 4^?', a:8, hint:'Same base: add.',
+   steps:[['4^5 · 4^3 = 4^{5+3} = 4^8','Product rule.']]},
+  {prompt:'In `9^3 · 10^7`, the bases are different. What is the exponent that stays with the 10?', expr:'9^3 · 10^?', a:7, hint:'Do not add or multiply 3 and 7. The 10 keeps its own exponent.',
+   steps:[['9^3 · 10^7','Different bases stay separate.'],['The 10 keeps exponent 7','The 9 keeps exponent 3.']]},
+  {prompt:'Simplify `(6^7)^2` as a single power of 6. What is the new exponent?', expr:'(6^7)^2 = 6^?', a:14, hint:'Power of a power: multiply 7 × 2.',
+   steps:[['(6^7)^2 = 6^{7 · 2} = 6^{14}','This is the 7 × 2 = 14 case. Compare with 6^7 · 6^2, which would be 6^9.']]},
+  {prompt:'Which rule is `(a^7)^2`? Type 1 if you should ADD (7 + 2), or 2 if you should MULTIPLY (7 × 2).', expr:'(a^7)^2', a:2, hint:'Parentheses around a power, another exponent outside.',
+   steps:[['(a^7)^2 = a^{14}','Multiply the exponents.'],['a^7 · a^2 = a^9','That other one is when you add.']]},
+  {prompt:'Evaluate:', expr:'2^3 · 5^2', a:200, hint:'Different bases: evaluate each power, then multiply the results. 8 · 25.',
+   steps:[['2^3 = 8','Three 2s.'],['5^2 = 25','Five times five.'],['8 · 25 = 200','You cannot write this as a single power of 2 or of 5.']]},
+  {prompt:'Simplify `8^9 / 8^5` as a single power of 8. What is the new exponent?', expr:'8^9 / 8^5 = 8^?', a:4, hint:'Same base: subtract 9 − 5.',
+   steps:[['8^9 / 8^5 = 8^{9-5} = 8^4','Quotient rule.']]},
+  {prompt:'Evaluate:', expr:'12^0', a:1, hint:'Nonzero number to the 0 power.',
+   steps:[['12^0 = 1','Zero-exponent rule.']]},
+  {prompt:'Evaluate. You can type a fraction like 1/16.', expr:'4^{-2}', a:0.0625, show:'1/16', hint:'`4^{-2} = 1 / 4^2 = 1/16`.',
+   steps:[['4^{-2} = 1 / 4^2','Negative exponent → reciprocal.'],['4^2 = 16','4 · 4 = 16.'],['= 1/16','Type 1/16 or 0.0625.']]},
+  {prompt:'Write as an ordinary number:', expr:'7.1 · 10^3', a:7100, hint:'Move the decimal 3 places right.',
+   steps:[['7.1 · 10^3 = 7100','7.1 → 71 → 710 → 7,100.']]}
+ ]}
+];
+
+(function(){
+'use strict';
+var KEY = 'caleb-exponents-v1';
+var QUIZ = window.QUIZ;
+
+/* ---------- math rendering ---------- */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function R(src){
+  var s = esc(src);
+  s = s.replace(/(\([^()]*\)|[\dx.]+)\/(\([^()]*\)|[\dx.]+)/g, function(_,a,b){
+    return '<span class="frac"><span class="nu">'+a+'</span><span class="de">'+b+'</span></span>';
+  });
+  s = s.replace(/\^\{([^}]+)\}/g, '<sup>$1</sup>');
+  s = s.replace(/\^(-?\d+|[a-zA-Z])/g, '<sup>$1</sup>');
+  s = s.replace(/\[\[(.+?)\]\]/g, '<span class="hl">$1</span>');
+  s = s.replace(/x/g, '<i>x</i>');
+  s = s.replace(/-/g, '\u2212').replace(/\*/g, '\u00b7');
+  return s;
+}
+/* text with `math` segments */
+function RT(src){
+  return String(src).split('`').map(function(part,i){ return i%2 ? '<span class="m">'+R(part)+'</span>' : esc(part); }).join('');
+}
+window.__render = R;
+
+/* ---------- answer parsing ---------- */
+function parseAnswer(raw){
+  if(raw == null) return NaN;
+  var s = String(raw).trim().toLowerCase()
+    .replace(/[\u2212\u2013\u2014\u2010\u2011\uFE63\uFF0D]/g,'-')
+    .replace(/[\u2044\u2215\u00f7]/g,'/')
+    .replace(/,/g,'.');
+  s = s.replace(/^x\s*=\s*/, '').replace(/\s*=\s*x$/, '');
+  s = s.trim();
+  var m = s.match(/^([+-]?)\s*(\d+)\s+(\d+)\s*\/\s*(\d+)$/);           /* mixed number 3 1/2 */
+  if(m){ var d=+m[4]; if(!d) return NaN; var v=+m[2]+(+m[3])/d; return m[1]==='-'?-v:v; }
+  s = s.replace(/\s+/g,'');
+  var num = '[+-]?(?:\\d+\\.?\\d*|\\.\\d+)';
+  if(new RegExp('^'+num+'$').test(s)) return parseFloat(s);
+  m = s.match(new RegExp('^('+num+')/('+num+')$'));
+  if(m){ var b=parseFloat(m[2]); if(!b) return NaN; return parseFloat(m[1])/b; }
+  m = s.match(/^([+-]?)\((.+)\)$/);                                       /* -(3/2) */
+  if(m){ var inner=parseAnswer(m[2]); return m[1]==='-'?-inner:inner; }
+  return NaN;
+}
+window.__parseAnswer = parseAnswer;
+function same(a,b){ return Math.abs(a-b) < 1e-9; }
+
+/* ---------- state ---------- */
+var state;
+function load(){ try{ state = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){ state = {}; } if(!state.q) state.q = {}; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function qs(id){ return state.q[id] || (state.q[id] = {v:'', tries:0, ok:false, counted:false, shown:false, peek:false, hint:false}); }
+function done(st){ return st && (st.ok || st.peek); }
+
+/* ---------- build quizzes ---------- */
+function stepsHTML(steps){
+  return '<ol class="steps">'+steps.map(function(s){ return '<li><span class="m">'+R(s[0])+'</span><span class="why">'+RT(s[1])+'</span></li>'; }).join('')+'</ol>';
+}
+function build(){
+  QUIZ.forEach(function(sec){
+    var box = document.getElementById('quiz-'+sec.id);
+    if(!box) return;
+    var h = '<div class="quiz" data-sec="'+sec.id+'"><div class="quiz-head"><h3>'+(sec.id==='final'?'Final quiz':'Section quiz')+'</h3><span class="score" id="score-'+sec.id+'">0/'+sec.qs.length+'</span></div>';
+    sec.qs.forEach(function(q,i){
+      var id = sec.id+'-'+i, isEq = !!q.eq && !q.hideEq;
+      var text = q.prompt ? RT(q.prompt) : 'Solve for <span class="m">x</span>:';
+      if(isEq) text += '<span class="m big">'+R(q.eq)+'</span>';
+      else if(q.expr) text += '<span class="m big">'+R(q.expr)+'</span>';
+      h += '<div class="q" id="q-'+id+'" data-id="'+id+'">'+
+        '<div class="qnum">Question '+(i+1)+' of '+sec.qs.length+'</div>'+
+        '<div class="qtext">'+text+'</div>'+
+        '<div class="ansrow"><label class="sr" for="in-'+id+'">Your answer</label>'+
+          '<span class="pre">'+(q.eq ? 'x =' : '=')+'</span>'+
+          '<input id="in-'+id+'" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="your answer">'+
+          '<button type="button" class="pm" data-act="pm" aria-label="Add or remove minus sign">±</button></div>'+
+        '<div class="btns"><button type="button" class="primary" data-act="check">Check</button>'+
+          '<button type="button" data-act="hint">Hint</button>'+
+          '<button type="button" data-act="steps">Show steps</button></div>'+
+        '<div class="fb" role="status" aria-live="polite"></div>'+
+        '<div class="hintbox" hidden>💡 '+RT(q.hint)+'</div>'+
+        '<div class="sol" hidden><p class="solt">Worked solution</p>'+stepsHTML(q.steps)+'<p class="tips" style="margin-bottom:0">Answer: <b class="m">'+R(q.show||fmt(q.a))+'</b></p></div>'+
+      '</div>';
+    });
+    h += '<div class="quiz-foot"><p class="summary" id="sum-'+sec.id+'"></p><button type="button" data-act="retry" data-sec="'+sec.id+'">↺ Try again</button></div></div>';
+    box.innerHTML = h;
+  });
+}
+function fmt(a){ return (a<0?'-':'')+String(Math.abs(a)); }
+function findQ(id){ var p=id.split('-'); var sec=QUIZ.filter(function(s){return s.id===p[0];})[0]; return {sec:sec, q:sec.qs[+p[1]]}; }
+
+/* ---------- UI update ---------- */
+var PRAISE = ['Nice work!','Exactly right!','You got it!','Correct!','Nailed it!','That\'s it!'];
+function paintQ(id, msg, cls){
+  var el = document.getElementById('q-'+id); if(!el) return;
+  var st = qs(id), q = findQ(id).q;
+  var inp = el.querySelector('input');
+  if(inp.value !== st.v) inp.value = st.v;
+  el.classList.toggle('ok', !!st.ok);
+  inp.readOnly = !!st.ok;
+  el.querySelector('.hintbox').hidden = !st.hint;
+  el.querySelector('.sol').hidden = !st.shown;
+  el.querySelector('[data-act=steps]').textContent = st.shown ? 'Hide steps' : 'Show steps';
+  el.querySelector('[data-act=hint]').textContent = st.hint ? 'Hide hint' : 'Hint';
+  var fb = el.querySelector('.fb');
+  if(msg === undefined){
+    if(st.ok) { msg = st.counted ? '✓ Correct!' : '✓ Correct (after seeing the steps, so this one doesn\'t count toward your score).'; cls='good'; }
+    else if(st.peek) { msg = 'Look through the steps, then try typing the answer yourself.'; cls='info'; }
+    else if(st.tries) { msg = 'Not quite yet. Try again.'; cls='bad'; }
+    else { msg=''; cls=''; }
+  }
+  fb.textContent = msg; fb.className = 'fb '+(cls||'');
+}
+function updateProgress(){
+  var total=0, fin=0, list='';
+  QUIZ.forEach(function(sec,si){
+    var n=sec.qs.length, d=0, c=0, any=false;
+    sec.qs.forEach(function(q,i){ var st=state.q[sec.id+'-'+i]; if(done(st)) d++; if(st&&st.counted) c++; if(st&&(st.tries||st.peek||st.hint)) any=true; });
+    total+=n; fin+=d;
+    var allDone = d===n;
+    var sc = document.getElementById('score-'+sec.id); if(sc) sc.textContent = c+'/'+n;
+    var sum = document.getElementById('sum-'+sec.id);
+    if(sum){
+      if(allDone){
+        var r=c/n;
+        sum.textContent = 'Score: '+c+'/'+n+'. '+(r===1?'Perfect! You\'ve got this skill down. 💪':r>=0.67?'Solid work! Try again any time to aim for a perfect score.':'Good effort! Reread the examples above, then tap Try again. Practice is how this clicks.');
+      } else sum.textContent = d ? (d+' of '+n+' answered. Keep going!') : '';
+    }
+    list += '<li class="'+(allDone?'done':(any?'started':''))+'"><a href="#'+sec.id+'"><span class="dot">'+(allDone?'✓':(sec.id==='final'?'★':(si+1)))+'</span><span class="ct">'+esc(sec.short)+'</span><span class="sc">'+(d?c+'/'+n+' correct':n+' questions')+'</span></a></li>';
+  });
+  var pct = total ? Math.round(fin/total*100) : 0;
+  document.getElementById('pfill').style.width = pct+'%';
+  document.getElementById('topfill').style.width = pct+'%';
+  document.getElementById('ptext').textContent = fin+' of '+total+' questions done ('+pct+'%)';
+  document.getElementById('checklist').innerHTML = list;
+  var fbx = document.getElementById('finishbox'); if(fbx) fbx.hidden = fin<total;
+  var anySec = QUIZ.some(function(sec){ return sec.qs.every(function(q,i){ return done(state.q[sec.id+'-'+i]); }); });
+  var sbx = document.getElementById('sendbox'); if(sbx) sbx.hidden = !anySec;
+}
+
+/* ---------- send scores ---------- */
+var SCORES_URL = 'https://caleb-quiz-scores.jmjcoke.workers.dev/submit';
+function buildPayload(){
+  var sections=[], missed=[], tc=0, tt=0, td=0;
+  QUIZ.forEach(function(sec){
+    var c=0, d=0, n=sec.qs.length;
+    sec.qs.forEach(function(q,i){
+      var st=state.q[sec.id+'-'+i];
+      if(done(st)) d++;
+      if(st&&st.counted){ c++; return; }
+      if(!st) return;
+      missed.push({section:sec.id, sectionTitle:sec.title, index:i, prompt:q.prompt||'', eq:q.eq||q.expr||'', yourAnswer:st.v==null?'':String(st.v), correctAnswer:q.a, tries:st.tries||0, peeked:!!st.peek, usedHint:!!st.hint, gotItRight:!!st.ok});
+    });
+    tc+=c; tt+=n; td+=d;
+    sections.push({id:sec.id, title:sec.title, correct:c, answered:d, total:n, complete:d===n});
+  });
+  return {name:'Caleb', tutorial:'exponents', title:'Exponents', submittedAt:new Date().toISOString(), totals:{correct:tc, answered:td, total:tt}, sections:sections, missed:missed, state:state};
+}
+function sendScores(){
+  var btn=document.getElementById('sendscores'), msg=document.getElementById('sendmsg');
+  btn.disabled=true; msg.className='sendmsg'; msg.textContent='Sending… 🚀';
+  fetch(SCORES_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(buildPayload())})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(){ msg.className='sendmsg ok'; msg.textContent='Sent! Dad can see how you did. 🎉'; btn.textContent='Send again 📬'; btn.disabled=false; })
+    .catch(function(){ msg.className='sendmsg err'; msg.textContent='Oops, that didn\'t go through. Check your internet and tap the button to try again. 🙂'; btn.disabled=false; });
+}
+/* ---------- actions ---------- */
+function check(id){
+  var el = document.getElementById('q-'+id), st = qs(id), q = findQ(id).q;
+  if(st.ok) return;
+  var raw = el.querySelector('input').value; st.v = raw;
+  if(!raw.trim()){ paintQ(id,'Type an answer first.','info'); return; }
+  var v = parseAnswer(raw);
+  if(isNaN(v)){ save(); paintQ(id,'Hmm, I can\'t read that. Type a number like 5, -3, 2.5, or 7/2.','info'); return; }
+  st.tries++;
+  if(same(v,q.a)){
+    st.ok = true; if(!st.peek) st.counted = true;
+    save(); paintQ(id, st.counted ? '✓ '+PRAISE[Math.floor(Math.random()*PRAISE.length)] : undefined, 'good');
+  } else {
+    var msg;
+    if(q.a!==0 && same(v,-q.a)) msg = 'Close! The number is right, but check the sign (+ or −).';
+    else if(st.tries===1) msg = 'Not quite. Try again, or tap Hint for a nudge.';
+    else msg = 'Still not it. That\'s OK. Here are the steps. Read them, then try again.';
+    if(st.tries===1 || (q.a!==0 && same(v,-q.a) && st.tries<3)) st.hint = true;
+    else { st.shown = true; st.peek = true; }
+    save(); paintQ(id, msg, 'bad');
+  }
+  updateProgress();
+}
+function retry(secId){
+  var sec = QUIZ.filter(function(s){return s.id===secId;})[0];
+  sec.qs.forEach(function(q,i){ delete state.q[secId+'-'+i]; });
+  save();
+  sec.qs.forEach(function(q,i){ paintQ(secId+'-'+i); });
+  updateProgress();
+  var first = document.getElementById('q-'+secId+'-0'); if(first && first.scrollIntoView) first.scrollIntoView({behavior:'smooth',block:'center'});
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-act]') : null; if(!b) return;
+  var act = b.getAttribute('data-act');
+  if(act==='retry'){ retry(b.getAttribute('data-sec')); return; }
+  var qel = b.closest('.q'); if(!qel) return; var id = qel.getAttribute('data-id'); var st = qs(id);
+  if(act==='check') check(id);
+  else if(act==='hint'){ st.hint = !st.hint; save(); paintQ(id); updateProgress(); }
+  else if(act==='steps'){ st.shown = !st.shown; if(st.shown) st.peek = true; save(); paintQ(id); updateProgress(); }
+  else if(act==='pm'){
+    var inp = qel.querySelector('input'); if(inp.readOnly) return;
+    var v = inp.value.replace(/^\s*x\s*=\s*/i,'');
+    v = /^\s*[-\u2212]/.test(v) ? v.replace(/^\s*[-\u2212]\s*/,'') : '-'+v.replace(/^\s*\+?/,'');
+    inp.value = v; st.v = v; save();
+    try{ inp.focus(); inp.setSelectionRange(v.length,v.length); }catch(_){}
+  }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key==='Enter' && e.target && e.target.matches && e.target.matches('.q input')){ e.preventDefault(); check(e.target.closest('.q').getAttribute('data-id')); }
+});
+document.addEventListener('input', function(e){
+  if(e.target && e.target.matches && e.target.matches('.q input')){ var st=qs(e.target.closest('.q').getAttribute('data-id')); st.v=e.target.value; save(); }
+});
+document.getElementById('sendscores').addEventListener('click', sendScores);
+document.getElementById('resetall').addEventListener('click', function(){
+  if(window.confirm('Erase all your answers and start over?')){ state={q:{}}; save(); QUIZ.forEach(function(sec){ sec.qs.forEach(function(q,i){ paintQ(sec.id+'-'+i); }); }); updateProgress(); }
+});
+
+/* ---------- init ---------- */
+load();
+Array.prototype.forEach.call(document.querySelectorAll('.m'), function(el){ if(!el.closest('.quiz')) el.innerHTML = R(el.textContent); });
+build();
+QUIZ.forEach(function(sec){ sec.qs.forEach(function(q,i){ var id=sec.id+'-'+i; if(state.q[id]) paintQ(id); }); });
+updateProgress();
+})();
+</script>
+</body>
+</html>
